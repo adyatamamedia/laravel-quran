@@ -42,10 +42,18 @@ class SurahData
         // API uses 'total_ayahs', legacy used 'verses_count'
         $this->versesCount = (int) ($data['total_ayahs'] ?? $data['verses_count'] ?? $data['jumlah_ayat'] ?? ($meta['count'] ?? 0));
 
-        // Audio from API
+        // Audio: fresh API payload uses nested 'audio' array,
+        // cached (toArray) payload uses flat 'audio_url'/'audio_reciters'.
         if (!empty($data['audio']) && is_array($data['audio'])) {
             $this->audioUrl = $data['audio']['primary'] ?? null;
             $this->audioReciters = $data['audio']['reciters'] ?? [];
+        } else {
+            if (!empty($data['audio_url']) && is_string($data['audio_url'])) {
+                $this->audioUrl = $data['audio_url'];
+            }
+            if (!empty($data['audio_reciters']) && is_array($data['audio_reciters'])) {
+                $this->audioReciters = $data['audio_reciters'];
+            }
         }
 
         // API uses 'ayahs', legacy used 'verses' or 'ayat'

@@ -55,9 +55,12 @@ class VerseData
         $this->page = isset($data['page_number']) ? (int) $data['page_number'] : (isset($data['page']) ? (int) $data['page'] : null);
         $this->hizb = isset($data['hizb']) ? (int) $data['hizb'] : null;
 
-        // Per-ayah audio from API
+        // Per-ayah audio: fresh API payload uses nested 'audio' array,
+        // cached (toArray) payload uses flat 'audio_url' string.
         if (!empty($data['audio']) && is_array($data['audio'])) {
             $this->audioUrl = $data['audio']['primary'] ?? null;
+        } elseif (!empty($data['audio_url']) && is_string($data['audio_url'])) {
+            $this->audioUrl = $data['audio_url'];
         }
     }
 
