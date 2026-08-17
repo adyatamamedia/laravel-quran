@@ -16,14 +16,16 @@ class VerseController extends Controller
         $this->quranService = $quranService;
     }
 
-    public function show(Request $request, string $surahSlug, int $ayah)
+    public function show(Request $request, string $surahSlug, int|string $ayah)
     {
+        $ayahNumber = (int) $ayah;
+
         $surahMeta = SurahSlug::findBySlug($surahSlug);
         if (!$surahMeta) {
             abort(404, 'Surah tidak ditemukan');
         }
 
-        if ($ayah < 1 || $ayah > $surahMeta['count']) {
+        if ($ayahNumber < 1 || $ayahNumber > $surahMeta['count']) {
             abort(404, 'Ayat tidak ditemukan');
         }
 
@@ -41,7 +43,7 @@ class VerseController extends Controller
             'prevSurah' => $prevSurah,
             'nextSurah' => $nextSurah,
             'allSurahs' => $allSurahs,
-            'targetAyah' => $ayah,
+            'targetAyah' => $ayahNumber,
         ]);
     }
 }
