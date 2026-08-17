@@ -2,7 +2,7 @@
 
 namespace Adyatama\Quran\Controllers;
 
-use App\Http\Controllers\Controller;
+use Illuminate\Routing\Controller;
 use Adyatama\Quran\Services\IslamiApi\QuranService;
 use Adyatama\Quran\Services\IslamiApi\ApiClient;
 use Adyatama\Quran\Support\SurahSlug;
