@@ -1,27 +1,46 @@
+@php
+    $logoLight = $siteLogo ?? ($settings['site_logo'] ?? null);
+    if ($logoLight && !str_starts_with($logoLight, 'http') && !str_starts_with($logoLight, '/')) {
+        $logoLight = asset($logoLight);
+    }
+
+    $logoDark = $siteLogoDark ?? ($settings['site_logo_dark'] ?? null);
+    if ($logoDark && !str_starts_with($logoDark, 'http') && !str_starts_with($logoDark, '/')) {
+        $logoDark = asset($logoDark);
+    }
+
+    $siteTitleText = $siteTitle ?? ($settings['site_title'] ?? ($settings['site_name'] ?? config('app.name', 'Al-Qur\'an Online')));
+    $siteFaviconUrl = $siteFavicon ?? ($settings['site_favicon'] ?? null);
+    if ($siteFaviconUrl && !str_starts_with($siteFaviconUrl, 'http') && !str_starts_with($siteFaviconUrl, '/')) {
+        $siteFaviconUrl = asset($siteFaviconUrl);
+    } else {
+        $siteFaviconUrl = $siteFaviconUrl ?? asset('assets/img/favicon.png');
+    }
+@endphp
 <!DOCTYPE html>
 <html lang="id">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>@yield('title', 'Al-Qur\'an Online | Quran NU Wajak')</title>
+    <title>@yield('title', 'Al-Qur\'an Online | ' . $siteTitleText)</title>
     <meta name="description" content="@yield('meta_description', 'Baca Al-Qur\'an 30 Juz online lengkap dengan 114 surah, teks Arab Utsmani, transliterasi Latin, terjemahan Bahasa Indonesia, Doa Harian, Wirid & Kitab Maulid Nabi.')">
     <link rel="canonical" href="{{ url()->current() }}">
     
     <!-- Open Graph / Facebook SEO -->
-    <meta property="og:site_name" content="Quran NU Wajak">
-    <meta property="og:title" content="@yield('title', 'Al-Qur\'an Online | Quran NU Wajak')">
+    <meta property="og:site_name" content="{{ $siteTitleText }}">
+    <meta property="og:title" content="@yield('title', 'Al-Qur\'an Online | ' . $siteTitleText)">
     <meta property="og:description" content="@yield('meta_description', 'Baca Al-Qur\'an 30 Juz online lengkap dengan 114 surah, teks Arab Utsmani, transliterasi Latin, terjemahan Bahasa Indonesia, Doa Harian, Wirid & Kitab Maulid Nabi.')">
     <meta property="og:type" content="@yield('og_type', 'website')">
     <meta property="og:url" content="{{ url()->current() }}">
     <meta property="og:locale" content="id_ID">
-    @php($defaultOgImage = $siteOgImage ?? $siteLogo ?? asset('assets/img/logo.png'))
-    <meta property="og:image" content="@yield('og_image', $defaultOgImage)">
+    @php($defaultOgImage = $siteOgImage ?? ($settings['og_image'] ?? $logoLight ?? asset('assets/img/logo.png')))
+    <meta property="og:image" content="@yield('og_image', !str_starts_with($defaultOgImage, 'http') ? asset($defaultOgImage) : $defaultOgImage)">
 
     <!-- Twitter Card SEO -->
     <meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:title" content="@yield('title', 'Al-Qur\'an Online | Quran NU Wajak')">
+    <meta name="twitter:title" content="@yield('title', 'Al-Qur\'an Online | ' . $siteTitleText)">
     <meta name="twitter:description" content="@yield('meta_description', 'Baca Al-Qur\'an 30 Juz online lengkap dengan 114 surah, teks Arab Utsmani, transliterasi Latin, terjemahan Bahasa Indonesia, Doa Harian, Wirid & Kitab Maulid Nabi.')">
-    <meta name="twitter:image" content="@yield('og_image', $defaultOgImage)">
+    <meta name="twitter:image" content="@yield('og_image', !str_starts_with($defaultOgImage, 'http') ? asset($defaultOgImage) : $defaultOgImage)">
     
     <script>
         (function() {
@@ -75,8 +94,8 @@
         }
     </style>
 
-    <link rel="icon" href="{{ $siteFavicon ?? asset('assets/img/favicon.png') }}">
-    <link rel="apple-touch-icon" href="{{ $siteFavicon ?? asset('assets/img/favicon.png') }}">
+    <link rel="icon" href="{{ $siteFaviconUrl }}">
+    <link rel="apple-touch-icon" href="{{ $siteFaviconUrl }}">
 
     <link rel="stylesheet" href="{{ asset('vendor/quran/css/quran.css') }}">
     <script src="https://cdn.tailwindcss.com"></script>
@@ -88,27 +107,30 @@
     @stack('styles')
 </head>
 <body class="quran-body antialiased">
-    <!-- Navbar Quran PPRU 2 (Dedicated) -->
+    <!-- Navbar Quran (Adaptive Logo & Title) -->
     <header class="sticky top-0 z-40 bg-[var(--q-surface)] border-b border-[var(--q-border)] shadow-xs transition-colors">
         <div class="quran-container h-16 flex items-center justify-between">
             <!-- Brand Logo -->
-            <a href="{{ route('quran.home') }}" class="flex items-center space-x-3 space-x-reverse">
-                @if (!empty($siteLogo) && !empty($siteLogoDark))
+            <a href="{{ route('quran.home') }}" class="flex items-center space-x-3">
+                @if (!empty($logoLight) && !empty($logoDark))
                     <!-- Light Mode Logo -->
-                    <img src="{{ $siteLogo }}" alt="{{ $siteTitle ?? 'PPRU 2' }}"
+                    <img src="{{ $logoLight }}" alt="{{ $siteTitleText }}"
                         class="h-8 lg:h-9 w-auto object-contain q-logo-light">
                     <!-- Dark Mode Logo -->
-                    <img src="{{ $siteLogoDark }}" alt="{{ $siteTitle ?? 'PPRU 2' }}"
+                    <img src="{{ $logoDark }}" alt="{{ $siteTitleText }}"
                         class="h-8 lg:h-9 w-auto object-contain q-logo-dark">
-                @elseif (!empty($siteLogo))
-                    <img src="{{ $siteLogo }}" alt="{{ $siteTitle ?? 'PPRU 2' }}"
+                @elseif (!empty($logoLight))
+                    <img src="{{ $logoLight }}" alt="{{ $siteTitleText }}"
                         class="h-8 lg:h-9 w-auto object-contain">
-                @elseif (!empty($siteLogoDark))
-                    <img src="{{ $siteLogoDark }}" alt="{{ $siteTitle ?? 'PPRU 2' }}"
+                @elseif (!empty($logoDark))
+                    <img src="{{ $logoDark }}" alt="{{ $siteTitleText }}"
                         class="h-8 lg:h-9 w-auto object-contain">
                 @else
-                    <div class="w-9 h-9 rounded-xl bg-emerald-600 flex items-center justify-center text-white font-bold text-lg shadow-sm">
-                        📖
+                    <div class="flex items-center gap-2">
+                        <div class="w-8 h-8 rounded-xl bg-emerald-600 flex items-center justify-center text-white font-bold text-base shadow-xs">
+                            📖
+                        </div>
+                        <span class="font-bold text-sm text-[var(--q-text)]">{{ $siteTitleText }}</span>
                     </div>
                 @endif
             </a>
@@ -129,7 +151,6 @@
                     </svg>
                 </button>
 
-
                 <!-- Dark Mode Toggle -->
                 <button type="button" class="js-toggle-theme p-2 rounded-lg text-[var(--q-muted)] hover:text-[var(--q-text)] hover:bg-[var(--q-hover)] transition-colors" title="Ubah Tema">
                     <svg class="w-5 h-5 hidden dark:block" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -143,26 +164,24 @@
         </div>
     </header>
 
-    <!-- Main Content -->
-    <main class="py-6">
+    <!-- Main Content Injection -->
+    <main class="min-h-[calc(100vh-8rem)] py-6">
         @yield('content')
     </main>
 
-    <!-- Minimal Footer -->
-    <footer class="mt-16 border-t border-[var(--q-border)] py-8 text-center text-sm text-[var(--q-muted)]">
-        <div class="quran-container">
-            <p>© {{ date('Y') }} <strong>Al-Qur'an Online {{ $siteTitle ?? 'PPRU 2' }}</strong></p>
-            <p class="text-xs mt-1 text-slate-400 dark:text-slate-500">Data bersumber dari Islami API & Kemenag RI. Memudahkan tadarus dan kajian santri.</p>
-        </div>
-    </footer>
-
-    <!-- Modals & Drawers -->
+    <!-- Quick Search Modal Component -->
     @include('quran::components.search-modal')
-    @include('quran::components.settings-drawer')
-    @include('quran::components.share-modal')
+
+    <!-- Bookmarks Modal Component -->
     @include('quran::components.bookmarks-modal')
+
+    <!-- Reader Settings Drawer Component -->
+    @include('quran::components.settings-drawer')
+
+    <!-- Floating Global Audio Player Component -->
     @include('quran::components.audio-player')
 
+    <!-- Quran Core JS -->
     <script src="{{ asset('vendor/quran/js/quran.js') }}"></script>
     @stack('scripts')
 </body>
