@@ -167,6 +167,7 @@
         @endif
     </div>
 </div>
+@endsection
 
 @push('scripts')
 @if(isset($targetAyah) && $targetAyah > 0)
@@ -183,4 +184,3 @@
 </script>
 @endif
 @endpush
-@endsection
