@@ -19,6 +19,9 @@ class QuranServiceProvider extends ServiceProvider
 
         $this->app->singleton(QuranServiceInterface::class, function ($app) {
             $serviceClass = config('quran.service', Services\IslamiApi\QuranService::class);
+            if ($serviceClass === Services\IslamiApi\QuranService::class) {
+                return new Services\IslamiApi\QuranService($app->make(Services\IslamiApi\ApiClient::class));
+            }
             return $app->make($serviceClass);
         });
 
