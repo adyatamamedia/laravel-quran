@@ -1,0 +1,30 @@
+{
+    "name": "adyatama/laravel-quran",
+    "description": "Modul Al-Qur'an 30 Juz, Tahlil, Yasin, Wirid, dan Kitab Maulid untuk Laravel",
+    "keywords": ["laravel", "quran", "al-quran", "tahlil", "wirid", "maulid", "islam"],
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Adyatama Media",
+            "email": "info@adyatamamedia.com"
+        }
+    ],
+    "require": {
+        "php": "^8.2|^8.3|^8.4",
+        "illuminate/support": "^10.0|^11.0|^12.0|^13.0",
+        "illuminate/http": "^10.0|^11.0|^12.0|^13.0"
+    },
+    "autoload": {
+        "psr-4": {
+            "Adyatama\\Quran\\": "src/"
+        }
+    },
+    "extra": {
+        "laravel": {
+            "providers": [
+                "Adyatama\\Quran\\QuranServiceProvider"
+            ]
+        }
+    },
+    "minimum-stability": "stable"
+}

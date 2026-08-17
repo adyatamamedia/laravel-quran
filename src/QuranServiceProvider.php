@@ -1,0 +1,73 @@
+<?php
+
+namespace Adyatama\Quran;
+
+use Illuminate\Support\ServiceProvider;
+use Illuminate\Support\Facades\Route;
+use Adyatama\Quran\Console\InstallCommand;
+
+class QuranServiceProvider extends ServiceProvider
+{
+    public function register(): void
+    {
+        $this->mergeConfigFrom(__DIR__ . '/../config/quran.php', 'quran');
+
+        $this->app->singleton(Services\IslamiApi\ApiClient::class, function ($app) {
+            return new Services\IslamiApi\ApiClient();
+        });
+
+        $this->app->singleton(Services\IslamiApi\QuranService::class, function ($app) {
+            return new Services\IslamiApi\QuranService($app->make(Services\IslamiApi\ApiClient::class));
+        });
+    }
+
+    public function boot(): void
+    {
+        // Register Views with namespace 'quran::'
+        $this->loadViewsFrom(__DIR__ . '/../resources/views', 'quran');
+
+        // Register Routes
+        $this->registerRoutes();
+
+        // Console Commands & Publishable Assets
+        if ($this->app->runningInConsole()) {
+            $this->commands([
+                InstallCommand::class,
+            ]);
+
+            // Publish Config
+            $this->publishes([
+                __DIR__ . '/../config/quran.php' => config_path('quran.php'),
+            ], 'quran-config');
+
+            // Publish Views
+            $this->publishes([
+                __DIR__ . '/../resources/views' => resource_path('views/vendor/quran'),
+            ], 'quran-views');
+
+            // Publish Assets (CSS, JS, Fonts)
+            $this->publishes([
+                __DIR__ . '/../resources/css' => public_path('vendor/quran/css'),
+                __DIR__ . '/../resources/js' => public_path('vendor/quran/js'),
+                __DIR__ . '/../resources/fonts' => public_path('vendor/quran/fonts'),
+            ], 'quran-assets');
+        }
+    }
+
+    protected function registerRoutes(): void
+    {
+        $mode = config('quran.routing_mode', 'prefix');
+        $middleware = config('quran.middleware', ['web']);
+
+        if ($mode === 'domain' && config('quran.domain')) {
+            Route::middleware($middleware)
+                ->domain(config('quran.domain'))
+                ->group(__DIR__ . '/../routes/web.php');
+        } else {
+            $prefix = config('quran.prefix', 'quran');
+            Route::middleware($middleware)
+                ->prefix($prefix)
+                ->group(__DIR__ . '/../routes/web.php');
+        }
+    }
+}

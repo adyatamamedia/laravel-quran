@@ -1,0 +1,239 @@
+@import "tailwindcss";
+
+@source "../../quran/**/*.blade.php";
+@source "../**/*.blade.php";
+@source "../**/*.js";
+
+@custom-variant dark (&:where([data-theme="dark"], [data-theme="dark"] *));
+
+@font-face {
+  font-family: 'surah-name-v2-icon';
+  src: url('/fonts/surah-name-v2.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+.font-calligraphy {
+  font-family: 'surah-name-v2-icon', 'Omar', 'Amiri', sans-serif;
+  font-style: normal;
+  line-height: 1;
+  direction: ltr;
+}
+
+@layer base {
+  :root {
+    --q-bg: #f8fafc;
+    --q-surface: #ffffff;
+    --q-text: #0f172a;
+    --q-muted: #64748b;
+    --q-accent: #065f46;
+    --q-accent-hover: #047857;
+    --q-border: #e2e8f0;
+    --q-hover: #f1f5f9;
+    --q-verse-accent: #065f46;
+    --q-verse-text: #0f172a;
+    --q-tafsir-bg: #ffffff;
+    --q-arabic-size: 2rem;
+    --q-arabic-font: 'Omar', 'LPMQ Isep Misbah', 'Scheherazade New', 'Amiri', 'Traditional Arabic', serif;
+  }
+
+  [data-theme="dark"] {
+    --q-bg: #0f172a;
+    --q-surface: #1e293b;
+    --q-text: #f8fafc;
+    --q-muted: #94a3b8;
+    --q-accent: #10b981;
+    --q-accent-hover: #34d399;
+    --q-border: #334155;
+    --q-hover: #334155;
+    --q-verse-accent: #fbbf24;
+    --q-verse-text: #f8fafc;
+    --q-tafsir-bg: #1e293b;
+  }
+}
+
+body.quran-body {
+  background-color: var(--q-bg);
+  color: var(--q-text);
+  font-family: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  min-height: 100vh;
+  margin: 0;
+  padding: 0;
+}
+
+.quran-container {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 0 1rem;
+}
+
+.quran-reader-container {
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 0 1rem;
+}
+
+/* Arabic Text Style */
+.font-arabic {
+  font-family: var(--q-arabic-font);
+  font-size: var(--q-arabic-size);
+  line-height: 1.8;
+  direction: rtl;
+  text-align: right;
+  word-spacing: 0.1em;
+}
+
+/* Verse Numbering Ring */
+.verse-marker {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 2.2rem;
+  height: 2.2rem;
+  border-radius: 50%;
+  border: 1.5px solid var(--q-accent);
+  color: var(--q-accent);
+  font-size: 0.85rem;
+  font-weight: 700;
+  margin: 0 0.4rem;
+  vertical-align: middle;
+}
+
+/* Surface Cards & Containers */
+.quran-card {
+  background-color: var(--q-surface);
+  border: 1px solid var(--q-border);
+  border-radius: 0.75rem;
+}
+
+.quran-card-hover:hover {
+  background-color: var(--q-hover);
+  border-color: var(--q-accent);
+}
+
+/* Utility UI */
+.line-clamp-4 {
+  display: -webkit-box;
+  -webkit-line-clamp: 4;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.quran-badge {
+  background-color: rgba(6, 95, 70, 0.12);
+  color: #065f46;
+  padding: 0.25rem 0.65rem;
+  border-radius: 9999px;
+  font-size: 0.75rem;
+  font-weight: 700;
+}
+
+[data-theme="dark"] .quran-badge {
+  background-color: rgba(16, 185, 129, 0.15);
+  color: #34d399;
+}
+
+.quran-divider {
+  border-bottom: 1px dashed var(--q-border);
+}
+
+/* Service Badge Dedicated Colors (Light & Dark Mode) */
+.q-service-badge-quran {
+  background-color: #d1fae5 !important;
+  color: #065f46 !important;
+  border: 1px solid #6ee7b7 !important;
+}
+[data-theme="dark"] .q-service-badge-quran {
+  background-color: #064e3b !important;
+  color: #6ee7b7 !important;
+  border-color: #047857 !important;
+}
+
+.q-service-badge-tahlil {
+  background-color: #fef3c7 !important;
+  color: #92400e !important;
+  border: 1px solid #fcd34d !important;
+}
+[data-theme="dark"] .q-service-badge-tahlil {
+  background-color: #78350f !important;
+  color: #fcd34d !important;
+  border-color: #b45309 !important;
+}
+
+.q-service-badge-wirid {
+  background-color: #ccfbf1 !important;
+  color: #115e59 !important;
+  border: 1px solid #5eead4 !important;
+}
+[data-theme="dark"] .q-service-badge-wirid {
+  background-color: #134e4a !important;
+  color: #5eead4 !important;
+  border-color: #0f766e !important;
+}
+
+.q-service-badge-maulid {
+  background-color: #e0e7ff !important;
+  color: #3730a3 !important;
+  border: 1px solid #a5b4fc !important;
+}
+[data-theme="dark"] .q-service-badge-maulid {
+  background-color: #312e81 !important;
+  color: #a5b4fc !important;
+  border-color: #4338ca !important;
+}
+
+/* Drawer & Modals */
+.quran-modal-backdrop {
+  background-color: rgba(0, 0, 0, 0.5);
+  backdrop-filter: blur(2px);
+}
+
+/* Visible Custom Scrollbars for All Browsers */
+:root {
+  --q-scroll-thumb: #94a3b8;
+  --q-scroll-thumb-hover: #065f46;
+}
+
+[data-theme="dark"] {
+  --q-scroll-thumb: #475569;
+  --q-scroll-thumb-hover: #10b981;
+}
+
+html {
+  scrollbar-width: auto;
+  scrollbar-color: var(--q-scroll-thumb) var(--q-bg);
+}
+
+::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
+}
+::-webkit-scrollbar-track {
+  background: var(--q-bg);
+}
+::-webkit-scrollbar-thumb {
+  background-color: var(--q-scroll-thumb);
+  border-radius: 9999px;
+  border: 2px solid var(--q-bg);
+}
+::-webkit-scrollbar-thumb:hover {
+  background-color: var(--q-scroll-thumb-hover);
+}
+
+/* Dynamic Logo Theme Switching */
+.q-logo-light {
+  display: block !important;
+}
+.q-logo-dark {
+  display: none !important;
+}
+
+[data-theme="dark"] .q-logo-light,
+html.dark .q-logo-light {
+  display: none !important;
+}
+[data-theme="dark"] .q-logo-dark,
+html.dark .q-logo-dark {
+  display: block !important;
+}

@@ -1,0 +1,48 @@
+@extends('quran::layouts.quran')
+
+@section('title', 'Pencarian Surah: ' . $query . ' | Quran NU Wajak')
+
+@section('content')
+<div class="max-w-6xl mx-auto px-4 sm:px-6 py-2">
+    <div class="mb-6">
+        <a href="{{ route('quran.home') }}" class="inline-flex items-center gap-1.5 text-xs font-semibold text-emerald-600 hover:text-emerald-700">
+            <span>← Kembali ke Beranda Quran</span>
+        </a>
+        <h1 class="text-xl font-bold text-[var(--q-text)] mt-2">
+            Hasil Pencarian: "<span class="text-emerald-600">{{ $query }}</span>"
+        </h1>
+        <p class="text-xs text-[var(--q-muted)]">Ditemukan {{ count($results) }} surah</p>
+    </div>
+
+    @if(count($results) > 0)
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3">
+            @foreach($results as $surah)
+                <a href="{{ route('quran.surah.show', ['surahSlug' => $surah->slug]) }}" 
+                   class="quran-card quran-card-hover p-4 flex items-center justify-between group">
+                    <div class="flex items-center gap-3.5">
+                        <div class="w-10 h-10 rounded-xl bg-[var(--q-hover)] group-hover:bg-emerald-600 group-hover:text-white text-[var(--q-text)] font-bold text-sm flex items-center justify-center transition-colors">
+                            {{ $surah->number }}
+                        </div>
+                        <div>
+                            <div class="font-bold text-sm text-[var(--q-text)] group-hover:text-emerald-600 transition-colors">
+                                {{ $surah->nameLatin }}
+                            </div>
+                            <div class="text-xs text-[var(--q-muted)]">
+                                {{ $surah->translatedName }} · {{ $surah->versesCount }} Ayat
+                            </div>
+                        </div>
+                    </div>
+                    <div class="font-calligraphy text-3xl text-emerald-900 dark:text-emerald-300" title="{{ $surah->nameArabic }}">
+                        {{ $surah->calligraphyGlyph }}
+                    </div>
+                </a>
+            @endforeach
+        </div>
+    @else
+        <div class="quran-card p-12 text-center text-[var(--q-muted)]">
+            <p class="text-base font-semibold text-[var(--q-text)]">Surah tidak ditemukan</p>
+            <p class="text-xs mt-1">Coba kata kunci lain atau cari berdasarkan nomor surah.</p>
+        </div>
+    @endif
+</div>
+@endsection
