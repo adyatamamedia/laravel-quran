@@ -6,15 +6,15 @@
 @section('structured_data')
 <script type="application/ld+json">
 {
-  "@context": "https://schema.org",
-  "@type": "Chapter",
+  "{{ '@' }}context": "https://schema.org",
+  "{{ '@' }}type": "Chapter",
   "name": "Surah {{ $surah->nameLatin }} ({{ $surah->nameArabic }})",
   "headline": "Surah {{ $surah->nameLatin }} - {{ $surah->translatedName }}",
   "description": "Baca Surah {{ $surah->nameLatin }} ({{ $surah->translatedName }}) {{ $surah->ayahCount }} ayat lengkap teks Arab, latin, dan terjemahan bahasa Indonesia.",
   "inLanguage": ["ar", "id"],
   "numberOfPages": "{{ $surah->ayahCount }} Ayat",
   "isPartOf": {
-    "@type": "Book",
+    "{{ '@' }}type": "Book",
     "name": "Al-Qur'an Al-Karim"
   }
 }

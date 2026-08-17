@@ -54,7 +54,7 @@
     <!-- JSON-LD Structured Data Schema -->
     <script type="application/ld+json">
     {
-      "@context": "https://schema.org",
+      "{{ '@' }}context": "https://schema.org",
       "@type": "WebSite",
       "name": "{{ $siteTitleText }} - Al-Qur'an Online",
       "url": "{{ url('/') }}",
