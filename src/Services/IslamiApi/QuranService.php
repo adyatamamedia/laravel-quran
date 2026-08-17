@@ -24,7 +24,7 @@ class QuranService implements QuranServiceInterface
      * Get all 114 surahs.
      * @return SurahData[]
      */
-    public function getSurahs(): array
+    public function getSurahs(array $filters = []): array
     {
         $useCache = (bool) config('quran.api.cache_enabled', true);
         $cacheKey = QuranCacheKeys::SURAHS;
@@ -81,7 +81,7 @@ class QuranService implements QuranServiceInterface
     /**
      * Get single Surah with verses by Surah number or slug.
      */
-    public function getSurah(int|string $identifier): ?SurahData
+    public function getSurah(int|string $identifier, array $params = []): ?SurahData
     {
         $number = is_numeric($identifier) ? (int) $identifier : SurahSlug::getNumber($identifier);
 
@@ -131,7 +131,7 @@ class QuranService implements QuranServiceInterface
     /**
      * Get single verse.
      */
-    public function getVerse(int $surahNumber, int $ayahNumber): ?VerseData
+    public function getVerse(int|string $surahNumber, int $ayahNumber, array $params = []): ?VerseData
     {
         $surah = $this->getSurah($surahNumber);
         if ($surah && !empty($surah->verses)) {
@@ -157,7 +157,7 @@ class QuranService implements QuranServiceInterface
      * Search Surahs by keyword or number.
      * @return SurahData[]
      */
-    public function searchSurah(string $query): array
+    public function searchSurah(string $query, array $filters = []): array
     {
         $query = trim(strtolower($query));
         if ($query === '') {
