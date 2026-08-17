@@ -1,6 +1,6 @@
 @extends('quran::layouts.quran')
 
-@section('title', ($tab === 'wirid' ? ($activeWiridCollection['name'] ?? 'Daftar Wirid & Dzikir ASWAJA') : ($activeDoaCategory['name'] ?? 'Kumpulan Doa Harian'))) : ($activeDoaCategory['name'] ?? 'Daftar Doa')) . ' | Quran NU Wajak')
+@section('title', ($tab === 'wirid' ? ($activeWiridCollection['name'] ?? 'Daftar Wirid & Dzikir ASWAJA') : ($activeDoaCategory['name'] ?? 'Kumpulan Doa Harian')))
 @section('meta_description', 'Kumpulan Doa Harian, Wirid, Dzikir, Hizib, dan Ratib ASWAJA lengkap teks Arab, latin, dan terjemahan Indonesia.')
 
 @section('content')
