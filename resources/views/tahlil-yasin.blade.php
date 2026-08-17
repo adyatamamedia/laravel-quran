@@ -1,6 +1,6 @@
 @extends('quran::layouts.quran')
 
-@section('title', ($tab === 'yasin' ? 'Surah Yasin' : 'Tahlil Lengkap & Doa') . ' | Quran NU Wajak')
+@section('title', ($tab === 'yasin' ? 'Surah Yasin & Terjemahan' : 'Tahlil Lengkap, Susunan Bacaan & Doa Arwah')) . ' | Quran NU Wajak')
 @section('meta_description', 'Bacaan Tahlil Lengkap, Doa Arwah, dan Surah Yasin dengan teks Arab, latin, terjemahan Indonesia, dan audio murottal.')
 
 @section('content')

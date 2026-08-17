@@ -1,6 +1,7 @@
+@section('robots', 'noindex, follow')
 @extends('quran::layouts.quran')
 
-@section('title', 'Pencarian Surah: ' . $query . ' | Quran NU Wajak')
+@section('title', 'Pencarian Surah: ' . $query)
 
 @section('content')
 <div class="max-w-6xl mx-auto px-4 sm:px-6 py-2">

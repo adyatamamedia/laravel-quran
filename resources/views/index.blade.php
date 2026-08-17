@@ -1,6 +1,6 @@
 @extends('quran::layouts.quran')
 
-@section('title', 'Al-Qur\'an 30 Juz Online & Kumpulan Doa ASWAJA | Quran NU Wajak')
+@section('title', 'Al-Qur\'an Online 30 Juz & Kumpulan Doa ASWAJA')
 @section('meta_description', 'Baca Al-Qur\'an 30 Juz online lengkap 114 surah, teks Arab Utsmani, transliterasi Latin, terjemahan Indonesia, serta kumpulan Doa Harian, Dzikir Wirid & Kitab Maulid Nabi.')
 
 @section('content')

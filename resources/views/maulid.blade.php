@@ -1,6 +1,6 @@
 @extends('quran::layouts.quran')
 
-@section('title', ($activeCollection['name'] ?? 'Kitab Maulid Nabi') . ' | Quran NU Wajak')
+@section('title', ($activeCollection['name'] ?? 'Kitab Maulid Nabi Muhammad SAW')) . ' | Quran NU Wajak')
 @section('meta_description', 'Kumpulan Kitab Maulid Nabi Muhammad SAW lengkap dengan teks Arab, latin, dan terjemahan Indonesia.')
 
 @section('content')

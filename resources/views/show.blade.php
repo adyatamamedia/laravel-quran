@@ -1,7 +1,25 @@
 @extends('quran::layouts.quran')
 
-@section('title', 'QS. ' . $surah->nameLatin . ' (' . $surah->nameArabic . ') | Quran NU Wajak')
-@section('meta_description', 'Baca Surat ' . $surah->nameLatin . ' (' . $surah->translatedName . ') lengkap dengan teks Arab, latin, dan terjemahan Indonesia di Quran NU Wajak.')
+@section('title', 'QS. ' . $surah->nameLatin . ' (' . $surah->nameArabic . ') - ' . $surah->translatedName) | Quran NU Wajak')
+@section('meta_description', 'Baca Surat ' . $surah->nameLatin . ' (' . $surah->translatedName . ') ' . $surah->ayahCount . ' ayat lengkap dengan teks Arab Utsmani, transliterasi Latin, arti bahasa Indonesia, dan audio tilawah.') lengkap dengan teks Arab, latin, dan terjemahan Indonesia di Quran NU Wajak.')
+
+@section('structured_data')
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Chapter",
+  "name": "Surah {{ $surah->nameLatin }} ({{ $surah->nameArabic }})",
+  "headline": "Surah {{ $surah->nameLatin }} - {{ $surah->translatedName }}",
+  "description": "Baca Surah {{ $surah->nameLatin }} ({{ $surah->translatedName }}) {{ $surah->ayahCount }} ayat lengkap teks Arab, latin, dan terjemahan bahasa Indonesia.",
+  "inLanguage": ["ar", "id"],
+  "numberOfPages": "{{ $surah->ayahCount }} Ayat",
+  "isPartOf": {
+    "@type": "Book",
+    "name": "Al-Qur'an Al-Karim"
+  }
+}
+</script>
+@endsection
 
 @section('content')
 <!-- Reader Top Toolbar (Full Width Edge-to-Edge, Flush to Navbar) -->
