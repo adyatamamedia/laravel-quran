@@ -1,6 +1,6 @@
 <?php
 
-namespace Adyatama\Adyatama\Quran\Support;
+namespace Adyatama\Quran\Support;
 
 class SurahSlug
 {

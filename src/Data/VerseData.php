@@ -1,6 +1,6 @@
 <?php
 
-namespace Adyatama\Adyatama\Quran\Data;
+namespace Adyatama\Quran\Data;
 
 class VerseData
 {

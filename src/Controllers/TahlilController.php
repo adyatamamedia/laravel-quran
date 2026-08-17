@@ -1,11 +1,11 @@
 <?php
 
-namespace Adyatama\Adyatama\Quran\Controllers;
+namespace Adyatama\Quran\Controllers;
 
 use App\Http\Controllers\Controller;
-use Adyatama\Adyatama\Quran\Services\IslamiApi\QuranService;
-use Adyatama\Adyatama\Quran\Services\IslamiApi\ApiClient;
-use Adyatama\Adyatama\Quran\Support\SurahSlug;
+use Adyatama\Quran\Services\IslamiApi\QuranService;
+use Adyatama\Quran\Services\IslamiApi\ApiClient;
+use Adyatama\Quran\Support\SurahSlug;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Cache;
 

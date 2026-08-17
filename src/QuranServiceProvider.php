@@ -4,8 +4,8 @@ namespace Adyatama\Quran;
 
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Support\Facades\Route;
-use Adyatama\Adyatama\Quran\Console\InstallCommand;
-use Adyatama\Adyatama\Quran\Contracts\QuranServiceInterface;
+use Adyatama\Quran\Console\InstallCommand;
+use Adyatama\Quran\Contracts\QuranServiceInterface;
 
 class QuranServiceProvider extends ServiceProvider
 {

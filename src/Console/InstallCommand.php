@@ -1,6 +1,6 @@
 <?php
 
-namespace Adyatama\Adyatama\Quran\Console;
+namespace Adyatama\Quran\Console;
 
 use Illuminate\Console\Command;
 

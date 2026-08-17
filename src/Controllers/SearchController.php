@@ -1,9 +1,9 @@
 <?php
 
-namespace Adyatama\Adyatama\Quran\Controllers;
+namespace Adyatama\Quran\Controllers;
 
 use App\Http\Controllers\Controller;
-use Adyatama\Adyatama\Quran\Services\IslamiApi\QuranService;
+use Adyatama\Quran\Services\IslamiApi\QuranService;
 use Illuminate\Http\Request;
 
 class SearchController extends Controller

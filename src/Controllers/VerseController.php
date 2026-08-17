@@ -1,10 +1,10 @@
 <?php
 
-namespace Adyatama\Adyatama\Quran\Controllers;
+namespace Adyatama\Quran\Controllers;
 
 use App\Http\Controllers\Controller;
-use Adyatama\Adyatama\Quran\Services\IslamiApi\QuranService;
-use Adyatama\Adyatama\Quran\Support\SurahSlug;
+use Adyatama\Quran\Services\IslamiApi\QuranService;
+use Adyatama\Quran\Support\SurahSlug;
 use Illuminate\Http\Request;
 
 class VerseController extends Controller
