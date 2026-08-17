@@ -69,9 +69,23 @@ class QuranServiceProvider extends ServiceProvider
         $middleware = config('quran.middleware', ['web']);
 
         if ($mode === 'domain' && config('quran.domain')) {
+            $rawDomain = config('quran.domain');
+            $cleanDomain = preg_replace('#^https?://#', '', $rawDomain);
+            $quranDomain = explode(':', $cleanDomain)[0];
+
             Route::middleware($middleware)
-                ->domain(config('quran.domain'))
+                ->domain($quranDomain)
                 ->group(__DIR__ . '/../routes/web.php');
+
+            if (app()->environment('local', 'development')) {
+                foreach (['quran.lvh.me', 'quran.test', 'quran.localhost'] as $devDomain) {
+                    if ($devDomain !== $quranDomain) {
+                        Route::middleware($middleware)
+                            ->domain($devDomain)
+                            ->group(__DIR__ . '/../routes/web.php');
+                    }
+                }
+            }
         } else {
             $prefix = config('quran.prefix', 'quran');
             Route::middleware($middleware)
