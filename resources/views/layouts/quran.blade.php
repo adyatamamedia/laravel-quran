@@ -1,21 +1,25 @@
 @php
-    $logoLight = $siteLogo ?? ($settings['site_logo'] ?? null);
-    if ($logoLight && !str_starts_with($logoLight, 'http') && !str_starts_with($logoLight, '/')) {
-        $logoLight = asset($logoLight);
-    }
+    $resolveMediaUrl = function($path) {
+        if (empty($path)) return null;
+        if (is_string($path) && (str_starts_with($path, 'http://') || str_starts_with($path, 'https://') || str_starts_with($path, '//'))) {
+            return $path;
+        }
+        if (function_exists('media_url')) {
+            $media = media_url($path);
+            if ($media) return $media;
+        }
+        if (str_starts_with($path, 'uploads/') && !file_exists(public_path($path))) {
+            return url('media/' . $path);
+        }
+        return asset($path);
+    };
 
-    $logoDark = $siteLogoDark ?? ($settings['site_logo_dark'] ?? null);
-    if ($logoDark && !str_starts_with($logoDark, 'http') && !str_starts_with($logoDark, '/')) {
-        $logoDark = asset($logoDark);
-    }
+    $logoLight = $resolveMediaUrl($siteLogo ?? ($settings['site_logo'] ?? null));
+    $logoDark = $resolveMediaUrl($siteLogoDark ?? ($settings['site_logo_dark'] ?? null));
 
     $siteTitleText = $siteTitle ?? ($settings['site_title'] ?? ($settings['site_name'] ?? config('app.name', 'Al-Qur\'an Online')));
-    $siteFaviconUrl = $siteFavicon ?? ($settings['site_favicon'] ?? null);
-    if ($siteFaviconUrl && !str_starts_with($siteFaviconUrl, 'http') && !str_starts_with($siteFaviconUrl, '/')) {
-        $siteFaviconUrl = asset($siteFaviconUrl);
-    } else {
-        $siteFaviconUrl = $siteFaviconUrl ?? asset('assets/img/favicon.png');
-    }
+    
+    $siteFaviconUrl = $resolveMediaUrl($siteFavicon ?? ($settings['site_favicon'] ?? null)) ?? asset('assets/img/favicon.png');
 @endphp
 <!DOCTYPE html>
 <html lang="id">
@@ -33,14 +37,14 @@
     <meta property="og:type" content="@yield('og_type', 'website')">
     <meta property="og:url" content="{{ url()->current() }}">
     <meta property="og:locale" content="id_ID">
-    @php($defaultOgImage = $siteOgImage ?? ($settings['og_image'] ?? $logoLight ?? asset('assets/img/logo.png')))
-    <meta property="og:image" content="@yield('og_image', !str_starts_with($defaultOgImage, 'http') ? asset($defaultOgImage) : $defaultOgImage)">
+    @php($defaultOgImage = $resolveMediaUrl($siteOgImage ?? ($settings['og_image'] ?? null)) ?? $logoLight ?? asset('assets/img/logo.png'))
+    <meta property="og:image" content="@yield('og_image', $defaultOgImage)">
 
     <!-- Twitter Card SEO -->
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:title" content="@yield('title', 'Al-Qur\'an Online | ' . $siteTitleText)">
     <meta name="twitter:description" content="@yield('meta_description', 'Baca Al-Qur\'an 30 Juz online lengkap dengan 114 surah, teks Arab Utsmani, transliterasi Latin, terjemahan Bahasa Indonesia, Doa Harian, Wirid & Kitab Maulid Nabi.')">
-    <meta name="twitter:image" content="@yield('og_image', !str_starts_with($defaultOgImage, 'http') ? asset($defaultOgImage) : $defaultOgImage)">
+    <meta name="twitter:image" content="@yield('og_image', $defaultOgImage)">
     
     <script>
         (function() {
