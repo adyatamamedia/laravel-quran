@@ -1,7 +1,7 @@
 @extends('quran::layouts.quran')
 
-@section('title', 'QS. ' . $surah->nameLatin . ' (' . $surah->nameArabic . ') - ' . $surah->translatedName) | Quran NU Wajak')
-@section('meta_description', 'Baca Surat ' . $surah->nameLatin . ' (' . $surah->translatedName . ') ' . $surah->ayahCount . ' ayat lengkap dengan teks Arab Utsmani, transliterasi Latin, arti bahasa Indonesia, dan audio tilawah.') lengkap dengan teks Arab, latin, dan terjemahan Indonesia di Quran NU Wajak.')
+@section('title', 'QS. ' . $surah->nameLatin . ' (' . $surah->nameArabic . ') - ' . $surah->translatedName)
+@section('meta_description', 'Baca Surat ' . $surah->nameLatin . ' (' . $surah->translatedName . ') ' . $surah->ayahCount . ' ayat lengkap dengan teks Arab Utsmani, transliterasi Latin, arti bahasa Indonesia, dan audio tilawah.')
 
 @section('structured_data')
 <script type="application/ld+json">
