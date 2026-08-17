@@ -5,6 +5,7 @@ namespace Adyatama\Quran;
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Support\Facades\Route;
 use Adyatama\Quran\Console\InstallCommand;
+use Adyatama\Quran\Contracts\QuranServiceInterface;
 
 class QuranServiceProvider extends ServiceProvider
 {
@@ -16,8 +17,13 @@ class QuranServiceProvider extends ServiceProvider
             return new Services\IslamiApi\ApiClient();
         });
 
+        $this->app->singleton(QuranServiceInterface::class, function ($app) {
+            $serviceClass = config('quran.service', Services\IslamiApi\QuranService::class);
+            return $app->make($serviceClass);
+        });
+
         $this->app->singleton(Services\IslamiApi\QuranService::class, function ($app) {
-            return new Services\IslamiApi\QuranService($app->make(Services\IslamiApi\ApiClient::class));
+            return $app->make(QuranServiceInterface::class);
         });
     }
 

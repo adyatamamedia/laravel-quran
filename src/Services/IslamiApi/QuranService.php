@@ -9,7 +9,9 @@ use Adyatama\Quran\Support\SurahSlug;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Log;
 
-class QuranService
+use Adyatama\Quran\Contracts\QuranServiceInterface;
+
+class QuranService implements QuranServiceInterface
 {
     protected ApiClient $client;
 
