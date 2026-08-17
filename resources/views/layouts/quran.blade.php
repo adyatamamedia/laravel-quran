@@ -28,7 +28,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>@yield('title', 'Al-Qur\''an 30 Juz Online & Terjemahan') | {{ $siteTitleText }}</title>
+    <title>@yield('title', "Al-Qur'an 30 Juz Online & Terjemahan") | {{ $siteTitleText }}</title>
     <meta name="description" content="@yield('meta_description', $siteTaglineText)">
     <meta name="keywords" content="@yield('meta_keywords', $siteKeywordsText)">
     <meta name="author" content="{{ $siteTitleText }}">
@@ -37,7 +37,7 @@
     
     <!-- Open Graph / Facebook SEO -->
     <meta property="og:site_name" content="{{ $siteTitleText }}">
-    <meta property="og:title" content="@yield('title', 'Al-Qur\''an Online') | {{ $siteTitleText }}">
+    <meta property="og:title" content="@yield('title', 'Al-Qur\'an Online') | {{ $siteTitleText }}">
     <meta property="og:description" content="@yield('meta_description', $siteTaglineText)">
     <meta property="og:type" content="@yield('og_type', 'website')">
     <meta property="og:url" content="{{ url()->current() }}">
@@ -47,7 +47,7 @@
 
     <!-- Twitter Card SEO -->
     <meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:title" content="@yield('title', 'Al-Qur\''an Online') | {{ $siteTitleText }}">
+    <meta name="twitter:title" content="@yield('title', 'Al-Qur\'an Online') | {{ $siteTitleText }}">
     <meta name="twitter:description" content="@yield('meta_description', $siteTaglineText)">
     <meta name="twitter:image" content="@yield('og_image', $defaultOgImage)">
     
