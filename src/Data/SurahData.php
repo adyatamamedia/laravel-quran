@@ -1,8 +1,8 @@
 <?php
 
-namespace Adyatama\Quran\Data;
+namespace Adyatama\Adyatama\Quran\Data;
 
-use Adyatama\Quran\Support\SurahSlug;
+use Adyatama\Adyatama\Quran\Support\SurahSlug;
 
 class SurahData
 {

@@ -1,12 +1,12 @@
 <?php
 
-use Adyatama\Quran\Controllers\HomeController;
-use Adyatama\Quran\Controllers\SurahController;
-use Adyatama\Quran\Controllers\VerseController;
-use Adyatama\Quran\Controllers\SearchController;
-use Adyatama\Quran\Controllers\TahlilController;
-use Adyatama\Quran\Controllers\WiridController;
-use Adyatama\Quran\Controllers\MaulidController;
+use Adyatama\Adyatama\Quran\Controllers\HomeController;
+use Adyatama\Adyatama\Quran\Controllers\SurahController;
+use Adyatama\Adyatama\Quran\Controllers\VerseController;
+use Adyatama\Adyatama\Quran\Controllers\SearchController;
+use Adyatama\Adyatama\Quran\Controllers\TahlilController;
+use Adyatama\Adyatama\Quran\Controllers\WiridController;
+use Adyatama\Adyatama\Quran\Controllers\MaulidController;
 use Illuminate\Support\Facades\Route;
 
 Route::name('quran.')->group(function () {

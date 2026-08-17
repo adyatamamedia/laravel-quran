@@ -1,15 +1,15 @@
 <?php
 
-namespace Adyatama\Quran\Services\IslamiApi;
+namespace Adyatama\Adyatama\Quran\Services\IslamiApi;
 
-use Adyatama\Quran\Data\SurahData;
-use Adyatama\Quran\Data\VerseData;
-use Adyatama\Quran\Support\QuranCacheKeys;
-use Adyatama\Quran\Support\SurahSlug;
+use Adyatama\Adyatama\Quran\Data\SurahData;
+use Adyatama\Adyatama\Quran\Data\VerseData;
+use Adyatama\Adyatama\Quran\Support\QuranCacheKeys;
+use Adyatama\Adyatama\Quran\Support\SurahSlug;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Log;
 
-use Adyatama\Quran\Contracts\QuranServiceInterface;
+use Adyatama\Adyatama\Quran\Contracts\QuranServiceInterface;
 
 class QuranService implements QuranServiceInterface
 {

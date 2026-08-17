@@ -1,9 +1,9 @@
 <?php
 
-namespace Adyatama\Quran\Controllers;
+namespace Adyatama\Adyatama\Quran\Controllers;
 
 use App\Http\Controllers\Controller;
-use Adyatama\Quran\Services\IslamiApi\ApiClient;
+use Adyatama\Adyatama\Quran\Services\IslamiApi\ApiClient;
 use Illuminate\Http\Request;
 
 class WiridController extends Controller

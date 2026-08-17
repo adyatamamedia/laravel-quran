@@ -1,6 +1,6 @@
 <?php
 
-namespace Adyatama\Quran\Services\IslamiApi;
+namespace Adyatama\Adyatama\Quran\Services\IslamiApi;
 
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Log;

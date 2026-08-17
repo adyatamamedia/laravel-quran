@@ -17,9 +17,9 @@ return [
     | Service Implementation Class (Custom Driver / Service)
     |--------------------------------------------------------------------------
     | You can replace the default service with your own custom class
-    | implementing Adyatama\Quran\Contracts\QuranServiceInterface.
+    | implementing Adyatama\Adyatama\Quran\Contracts\QuranServiceInterface.
     */
-    'service' => env('QURAN_SERVICE_CLASS', \Adyatama\Quran\Services\IslamiApi\QuranService::class),
+    'service' => env('QURAN_SERVICE_CLASS', \Adyatama\Adyatama\Quran\Services\IslamiApi\QuranService::class),
 
     /*
     |--------------------------------------------------------------------------

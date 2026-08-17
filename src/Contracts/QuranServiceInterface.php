@@ -1,6 +1,6 @@
 <?php
 
-namespace Adyatama\Quran\Contracts;
+namespace Adyatama\Adyatama\Quran\Contracts;
 
 interface QuranServiceInterface
 {

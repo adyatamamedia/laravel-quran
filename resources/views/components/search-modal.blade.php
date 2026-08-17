@@ -3,7 +3,7 @@
     <div class="js-close-search fixed inset-0 quran-modal-backdrop"></div>
 
     @php
-        $surahList = \Quran\Support\SurahSlug::all();
+        $surahList = \Adyatama\Quran\Support\SurahSlug::all();
 
         $doaCategoriesList = [
             ['name' => 'Doa Keseharian', 'slug' => 'doa-keseharian', 'desc' => '19 Bacaan Doa Harian'],
