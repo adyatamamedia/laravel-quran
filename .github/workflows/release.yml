@@ -1,0 +1,45 @@
+name: Create GitHub Release
+
+on:
+  push:
+    tags:
+      - 'v*'
+
+permissions:
+  contents: write
+
+jobs:
+  release:
+    name: Publish GitHub Release
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+
+      - name: Extract Changelog for Current Version
+        id: extract_changelog
+        run: |
+          VERSION="${GITHUB_REF#refs/tags/v}"
+          echo "Extracting release notes for version $VERSION..."
+          
+          # Extract release block between current version header and next version header
+          awk -v ver="$VERSION" '
+            $0 ~ "^## \\[" ver "\\]" { flag=1; next }
+            $0 ~ "^## \\[" { if (flag) exit }
+            flag { print }
+          ' CHANGELOG.md > RELEASE_NOTES.md
+
+          # If release notes are empty, fallback to reading tag message or full changelog
+          if [ ! -s RELEASE_NOTES.md ]; then
+            head -n 40 CHANGELOG.md > RELEASE_NOTES.md
+          fi
+
+      - name: Create GitHub Release
+        uses: softprops/action-gh-release@v2
+        with:
+          name: Release ${{ github.ref_name }}
+          body_path: RELEASE_NOTES.md
+          draft: false
+          prerelease: false
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
