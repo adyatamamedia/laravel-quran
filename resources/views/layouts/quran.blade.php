@@ -96,7 +96,7 @@
     <link rel="icon" href="{{ $siteFaviconUrl }}">
     <link rel="apple-touch-icon" href="{{ $siteFaviconUrl }}">
 
-    <link rel="stylesheet" href="{{ asset('vendor/quran/css/quran.css') }}">
+    <link rel="stylesheet" href="{{ asset('vendor/quran/css/quran.css') }}?v={{ config('quran.version', '2.1.1') }}">
     <script src="https://cdn.tailwindcss.com"></script>
     <script>
         tailwind.config = {
@@ -337,7 +337,7 @@
     </button>
 
     <!-- Quran Core JS -->
-    <script src="{{ asset('vendor/quran/js/quran.js') }}"></script>
+    <script src="{{ asset('vendor/quran/js/quran.js') }}?v={{ config('quran.version', '2.1.1') }}"></script>
     @stack('scripts')
 </body>
 </html>

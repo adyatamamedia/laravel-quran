@@ -5,6 +5,7 @@ namespace Adyatama\Quran;
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Support\Facades\Route;
 use Adyatama\Quran\Console\InstallCommand;
+use Adyatama\Quran\Console\UpdateCommand;
 use Adyatama\Quran\Contracts\ContentServiceInterface;
 use Adyatama\Quran\Contracts\QuranServiceInterface;
 
@@ -41,6 +42,7 @@ class QuranServiceProvider extends ServiceProvider
         if ($this->app->runningInConsole()) {
             $this->commands([
                 InstallCommand::class,
+                UpdateCommand::class,
             ]);
 
             // Publish Config

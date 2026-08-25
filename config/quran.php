@@ -11,6 +11,7 @@ return [
     'prefix'       => env('QURAN_ROUTE_PREFIX', 'quran'),
     'domain'       => env('QURAN_DOMAIN', null),
     'site_title'   => env('QURAN_SITE_TITLE', 'Quran Laravel Pack'),
+    'version'      => env('QURAN_ASSET_VERSION', '2.1.1'),
     'middleware'   => ['web'],
 
     /*
