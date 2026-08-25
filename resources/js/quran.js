@@ -563,7 +563,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
   // Determine initial active filter from pre-rendered active button
   filterBtns.forEach(btn => {
-    if (btn.classList.contains('bg-emerald-600')) {
+    if (btn.classList.contains('is-active') || btn.classList.contains('bg-[#1b594a]') || btn.classList.contains('bg-emerald-600')) {
       activeFilter = btn.getAttribute('data-filter') || 'all';
     }
   });
@@ -597,15 +597,13 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   filterBtns.forEach(btn => {
-    btn.addEventListener('click', () => {
+    btn.addEventListener('click', (e) => {
+      e.preventDefault();
+      e.stopPropagation();
       activeFilter = btn.getAttribute('data-filter') || 'all';
 
-      filterBtns.forEach(b => {
-        b.classList.remove('bg-emerald-600', 'text-white', 'border-emerald-600');
-        b.classList.add('bg-[var(--q-surface)]', 'text-[var(--q-muted)]');
-      });
-      btn.classList.remove('bg-[var(--q-surface)]', 'text-[var(--q-muted)]');
-      btn.classList.add('bg-emerald-600', 'text-white', 'border-emerald-600');
+      filterBtns.forEach(b => b.classList.remove('is-active'));
+      btn.classList.add('is-active');
 
       filterSearchResults();
     });
@@ -830,13 +828,18 @@ document.addEventListener('DOMContentLoaded', () => {
       html += `
         <div class="p-3 rounded-xl bg-[var(--q-hover)] border border-[var(--q-border)] flex items-center justify-between gap-3 group">
           <a href="/${b.slug}#verse-${b.ayah}" class="js-goto-bookmark flex-1 min-w-0" data-slug="${b.slug}" data-ayah="${b.ayah}">
-            <div class="font-bold text-xs sm:text-sm text-[var(--q-text)] group-hover:text-emerald-600 transition-colors truncate">
+            <div class="font-bold text-xs sm:text-sm text-[var(--q-text)] group-hover:text-[#598456] transition-colors truncate">
               QS. ${b.name} : Ayat ${b.ayah}
             </div>
             ${dateStr ? `<div class="text-[10px] text-[var(--q-muted)] mt-0.5">Ditandai: ${dateStr}</div>` : ''}
           </a>
-          <button type="button" class="js-remove-bookmark p-1.5 rounded-lg text-slate-400 hover:text-red-500 hover:bg-red-50 dark:hover:bg-red-950/40 transition-colors shrink-0" data-index="${idx}" title="Hapus Bookmark">
-            🗑️
+          <button type="button" class="js-remove-bookmark p-1.5 rounded-lg text-[var(--q-muted)] hover:text-red-500 hover:bg-red-50 dark:hover:bg-red-950/40 transition-colors shrink-0" data-index="${idx}" title="Hapus Bookmark">
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24">
+              <polyline points="3 6 5 6 21 6"></polyline>
+              <path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path>
+              <line x1="10" y1="11" x2="10" y2="17"></line>
+              <line x1="14" y1="11" x2="14" y2="17"></line>
+            </svg>
           </button>
         </div>
       `;
@@ -965,17 +968,20 @@ document.addEventListener('DOMContentLoaded', () => {
       const lastRead = JSON.parse(localStorage.getItem(LAST_READ_KEY));
       if (lastRead && lastRead.name && lastRead.ayah) {
         lastReadContainer.innerHTML = `
-          <div class="quran-card p-4 mb-6 flex items-center justify-between bg-emerald-50/50 dark:bg-emerald-950/20 border-emerald-200 dark:border-emerald-800/40">
+          <div class="quran-card p-4 mb-6 flex items-center justify-between bg-[var(--q-surface)] border border-[var(--q-border)] shadow-xs">
             <div class="flex items-center gap-3">
-              <div class="w-10 h-10 rounded-full bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 flex items-center justify-center font-bold">
-                📖
+              <div class="w-10 h-10 rounded-xl bg-[#598456]/15 text-[#1b594a] dark:text-[#baae4f] flex items-center justify-center font-bold">
+                <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24">
+                  <path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"></path>
+                  <path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"></path>
+                </svg>
               </div>
               <div>
-                <div class="text-xs text-slate-500 dark:text-slate-400">Terakhir Dibaca</div>
-                <div class="font-bold text-slate-800 dark:text-slate-100">QS. ${lastRead.name} — Ayat ${lastRead.ayah}</div>
+                <div class="text-xs text-[var(--q-muted)]">Terakhir Dibaca</div>
+                <div class="font-bold text-[var(--q-text)]">QS. ${lastRead.name} — Ayat ${lastRead.ayah}</div>
               </div>
             </div>
-            <a href="/${lastRead.slug}/${lastRead.ayah}" class="px-3 py-1.5 text-xs font-semibold rounded-lg bg-emerald-600 hover:bg-emerald-700 text-white transition-colors">
+            <a href="/${lastRead.slug}/${lastRead.ayah}" class="px-3 py-1.5 text-xs font-semibold rounded-lg bg-[#1b594a] hover:bg-[#13463a] text-white transition-colors">
               Lanjutkan
             </a>
           </div>

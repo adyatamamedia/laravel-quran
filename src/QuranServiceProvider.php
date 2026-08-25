@@ -53,11 +53,12 @@ class QuranServiceProvider extends ServiceProvider
                 __DIR__ . '/../resources/views' => resource_path('views/vendor/quran'),
             ], 'quran-views');
 
-            // Publish Assets (CSS, JS, Fonts)
+            // Publish Assets (CSS, JS, Fonts, Images)
             $this->publishes([
                 __DIR__ . '/../resources/css' => public_path('vendor/quran/css'),
                 __DIR__ . '/../resources/js' => public_path('vendor/quran/js'),
                 __DIR__ . '/../resources/fonts' => public_path('vendor/quran/fonts'),
+                __DIR__ . '/../resources/images' => public_path('vendor/quran/images'),
             ], 'quran-assets');
         }
     }

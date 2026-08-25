@@ -11,7 +11,7 @@ class InstallCommand extends Command
 
     public function handle(): int
     {
-        $this->info('📖 Installing Laravel Quran Package...');
+        $this->info('Installing Laravel Quran Package...');
 
         $force = $this->option('force');
 
@@ -21,7 +21,7 @@ class InstallCommand extends Command
             '--force' => $force,
         ]);
 
-        $this->comment('Publishing assets (CSS, JS, Fonts)...');
+        $this->comment('Publishing assets (CSS, JS, Fonts, Images)...');
         $this->callSilent('vendor:publish', [
             '--tag' => 'quran-assets',
             '--force' => true,
@@ -33,8 +33,8 @@ class InstallCommand extends Command
             '--force' => $force,
         ]);
 
-        $this->info('✨ Laravel Quran Package successfully installed!');
-        $this->line('🌐 You can now access Al-Quran at: <info>' . url(config('quran.prefix', 'quran')) . '</info>');
+        $this->info('Laravel Quran Package successfully installed!');
+        $this->line('You can now access Al-Quran at: <info>' . url(config('quran.prefix', 'quran')) . '</info>');
 
         return Command::SUCCESS;
     }

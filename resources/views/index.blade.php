@@ -10,34 +10,34 @@
         <div class="grid grid-cols-4 gap-2 sm:gap-6 text-center max-w-2xl mx-auto">
             <!-- Al-Quran -->
             <a href="{{ route('quran.home') }}" class="flex flex-col items-center group">
-                <div class="w-14 h-14 sm:w-16 sm:h-16 rounded-full q-service-badge-quran flex items-center justify-center text-2xl sm:text-3xl shadow-xs mb-2">
-                    📖
+                <div class="w-16 h-16 sm:w-20 sm:h-20 flex items-center justify-center mb-2">
+                    <img src="{{ asset('vendor/quran/images/quran.png') }}" alt="Al-Quran" class="w-full h-full object-contain drop-shadow-md">
                 </div>
-                <span class="font-bold text-xs sm:text-sm text-[var(--q-text)] group-hover:text-emerald-600 transition-colors">Al-Quran</span>
+                <span class="font-bold text-xs sm:text-sm text-[var(--q-text)] group-hover:text-[#598456] dark:group-hover:text-[#e0d68f] transition-colors">Al-Quran</span>
             </a>
 
             <!-- Tahlil & Yasin -->
             <a href="{{ route('quran.tahlil') }}" class="flex flex-col items-center group">
-                <div class="w-14 h-14 sm:w-16 sm:h-16 rounded-full q-service-badge-tahlil flex items-center justify-center text-2xl sm:text-3xl shadow-xs mb-2">
-                    🧎
+                <div class="w-16 h-16 sm:w-20 sm:h-20 flex items-center justify-center mb-2">
+                    <img src="{{ asset('vendor/quran/images/tahlil.png') }}" alt="Tahlil & Yasin" class="w-full h-full object-contain drop-shadow-md">
                 </div>
-                <span class="font-bold text-xs sm:text-sm text-[var(--q-text)] group-hover:text-amber-600 transition-colors">Tahlil & Yasin</span>
+                <span class="font-bold text-xs sm:text-sm text-[var(--q-text)] group-hover:text-[#598456] dark:group-hover:text-[#e0d68f] transition-colors">Tahlil & Yasin</span>
             </a>
 
             <!-- Wirid & Doa -->
             <a href="{{ route('quran.wirid') }}" class="flex flex-col items-center group">
-                <div class="w-14 h-14 sm:w-16 sm:h-16 rounded-full q-service-badge-wirid flex items-center justify-center text-2xl sm:text-3xl shadow-xs mb-2">
-                    🤲
+                <div class="w-16 h-16 sm:w-20 sm:h-20 flex items-center justify-center mb-2">
+                    <img src="{{ asset('vendor/quran/images/wirid.png') }}" alt="Wirid & Doa" class="w-full h-full object-contain drop-shadow-md">
                 </div>
-                <span class="font-bold text-xs sm:text-sm text-[var(--q-text)] group-hover:text-teal-600 transition-colors">Wirid & Doa</span>
+                <span class="font-bold text-xs sm:text-sm text-[var(--q-text)] group-hover:text-[#598456] dark:group-hover:text-[#e0d68f] transition-colors">Wirid & Doa</span>
             </a>
 
             <!-- Maulid -->
             <a href="{{ route('quran.maulid') }}" class="flex flex-col items-center group">
-                <div class="w-14 h-14 sm:w-16 sm:h-16 rounded-full q-service-badge-maulid flex items-center justify-center text-2xl sm:text-3xl shadow-xs mb-2">
-                    📗
+                <div class="w-16 h-16 sm:w-20 sm:h-20 flex items-center justify-center mb-2">
+                    <img src="{{ asset('vendor/quran/images/maulid.png') }}" alt="Maulid" class="w-full h-full object-contain drop-shadow-md">
                 </div>
-                <span class="font-bold text-xs sm:text-sm text-[var(--q-text)] group-hover:text-indigo-600 transition-colors">Maulid</span>
+                <span class="font-bold text-xs sm:text-sm text-[var(--q-text)] group-hover:text-[#598456] dark:group-hover:text-[#e0d68f] transition-colors">Maulid</span>
             </a>
         </div>
     </div>
@@ -46,7 +46,7 @@
     <div class="flex flex-wrap items-center justify-center gap-2.5 mb-8">
         @foreach($popularSurahs as $pop)
             <a href="{{ !empty($pop['isVerse']) ? url($pop['slug']) : route('quran.surah.show', ['surahSlug' => $pop['slug']]) }}" 
-               class="px-4 py-2 rounded-full bg-emerald-100/90 dark:bg-emerald-950/70 text-emerald-900 dark:text-emerald-300 font-semibold text-xs hover:bg-emerald-600 hover:text-white transition-all shadow-2xs border border-emerald-200/60 dark:border-emerald-800/60">
+               class="px-4 py-2 rounded-full bg-[var(--q-surface)] text-[var(--q-text)] dark:text-[#e6ece6] font-semibold text-xs hover:bg-[#1b594a] hover:text-white dark:hover:bg-[#598456] transition-all shadow-2xs border border-[var(--q-border)]">
                 {{ $pop['name'] }}
             </a>
         @endforeach
@@ -64,13 +64,13 @@
                class="quran-card quran-card-hover p-4 flex items-center justify-between group transition-all">
                 <div class="flex items-center gap-3.5">
                     <!-- Surah Number Box -->
-                    <div class="w-10 h-10 rounded-xl bg-[var(--q-hover)] group-hover:bg-emerald-600 group-hover:text-white text-[var(--q-text)] font-bold text-sm flex items-center justify-center transition-colors">
+                    <div class="w-10 h-10 rounded-xl bg-[var(--q-hover)] group-hover:bg-[#1b594a] group-hover:text-white dark:group-hover:bg-[#598456] text-[var(--q-text)] font-bold text-sm flex items-center justify-center transition-colors">
                         {{ $surah->number }}
                     </div>
 
                     <!-- Surah Details -->
                     <div>
-                        <div class="font-bold text-sm text-[var(--q-text)] group-hover:text-emerald-600 transition-colors">
+                        <div class="font-bold text-sm text-[var(--q-text)] group-hover:text-[#598456] dark:group-hover:text-[#e0d68f] transition-colors">
                             {{ $surah->nameLatin }}
                         </div>
                         <div class="text-xs text-[var(--q-muted)]">
@@ -80,7 +80,7 @@
                 </div>
 
                 <!-- Arabic Calligraphy Name -->
-                <div class="font-calligraphy text-3xl text-emerald-900 dark:text-emerald-300 group-hover:scale-105 transition-transform" title="{{ $surah->nameArabic }}">
+                <div class="font-calligraphy text-3xl text-[#1b594a] dark:text-[#baae4f] group-hover:text-[#baae4f] group-hover:scale-105 transition-all" title="{{ $surah->nameArabic }}">
                     {{ $surah->calligraphyGlyph }}
                 </div>
             </a>

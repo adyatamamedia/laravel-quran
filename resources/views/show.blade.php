@@ -37,7 +37,7 @@
 
                 @if($prevSurah)
                     <a href="{{ route('quran.surah.show', ['surahSlug' => $prevSurah['slug']]) }}" 
-                       class="h-9 px-3 flex items-center rounded-lg bg-[var(--q-hover)] text-xs font-semibold text-[var(--q-text)] hover:text-emerald-600 hover:bg-[var(--q-border)]/50 transition-colors shrink-0"
+                       class="h-9 px-3 flex items-center rounded-lg bg-[var(--q-hover)] text-xs font-semibold text-[var(--q-text)] hover:text-[#598456] hover:bg-[var(--q-border)]/50 transition-colors shrink-0"
                        title="Surah Sebelumnya: {{ $prevSurah['latin'] }}">
                         ← {{ $prevSurah['latin'] }}
                     </a>
@@ -45,7 +45,7 @@
 
                 @if($nextSurah)
                     <a href="{{ route('quran.surah.show', ['surahSlug' => $nextSurah['slug']]) }}" 
-                       class="h-9 px-3 flex items-center rounded-lg bg-[var(--q-hover)] text-xs font-semibold text-[var(--q-text)] hover:text-emerald-600 hover:bg-[var(--q-border)]/50 transition-colors shrink-0"
+                       class="h-9 px-3 flex items-center rounded-lg bg-[var(--q-hover)] text-xs font-semibold text-[var(--q-text)] hover:text-[#598456] hover:bg-[var(--q-border)]/50 transition-colors shrink-0"
                        title="Surah Selanjutnya: {{ $nextSurah['latin'] }}">
                         {{ $nextSurah['latin'] }} →
                     </a>
@@ -57,7 +57,7 @@
                 <!-- Surah Select Dropdown -->
                 <div class="relative flex items-center">
                     <select onchange="window.location.href=this.value" 
-                            class="h-9 pl-3 pr-7 rounded-lg bg-[var(--q-hover)] border border-[var(--q-border)] text-xs font-bold text-[var(--q-text)] focus:outline-hidden focus:ring-1 focus:ring-emerald-500 appearance-none cursor-pointer max-w-[140px] sm:max-w-[210px] truncate">
+                            class="h-9 pl-3 pr-7 rounded-lg bg-[var(--q-hover)] border border-[var(--q-border)] text-xs font-bold text-[var(--q-text)] focus:outline-hidden focus:ring-1 focus:ring-[#598456] appearance-none cursor-pointer max-w-[140px] sm:max-w-[210px] truncate">
                         @foreach($allSurahs as $num => $s)
                             <option value="{{ route('quran.surah.show', ['surahSlug' => $s['slug']]) }}" {{ $num === $surah->number ? 'selected' : '' }}>
                                 {{ $num }}. {{ $s['latin'] }}
@@ -73,7 +73,7 @@
                 @if($surah->versesCount > 0)
                     <div class="relative flex items-center">
                         <select onchange="const el = document.getElementById('ayah-' + this.value); if(el) el.scrollIntoView({behavior: 'smooth', block: 'center'});" 
-                                class="h-9 pl-3 pr-7 rounded-lg bg-[var(--q-hover)] border border-[var(--q-border)] text-xs font-semibold text-[var(--q-text)] focus:outline-hidden focus:ring-1 focus:ring-emerald-500 appearance-none cursor-pointer">
+                                class="h-9 pl-3 pr-7 rounded-lg bg-[var(--q-hover)] border border-[var(--q-border)] text-xs font-semibold text-[var(--q-text)] focus:outline-hidden focus:ring-1 focus:ring-[#598456] appearance-none cursor-pointer">
                             <option value="">Ayat...</option>
                             @for($i = 1; $i <= $surah->versesCount; $i++)
                                 <option value="{{ $i }}" {{ isset($targetAyah) && $targetAyah == $i ? 'selected' : '' }}>
@@ -89,7 +89,7 @@
 
                 <!-- Settings Drawer Button -->
                 <button type="button" 
-                        class="js-open-settings h-9 w-9 flex items-center justify-center rounded-lg bg-[var(--q-hover)] border border-[var(--q-border)] text-[var(--q-text)] hover:text-emerald-600 hover:border-emerald-500 transition-colors shrink-0" 
+                        class="js-open-settings h-9 w-9 flex items-center justify-center rounded-lg bg-[var(--q-hover)] border border-[var(--q-border)] text-[var(--q-text)] hover:text-[#598456] hover:border-[#598456] transition-colors shrink-0" 
                         title="Pengaturan Tampilan Pembaca">
                     <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6V4m0 2a2 2 0 100 4m0-4a2 2 0 110 4m-6 8a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4m6 6v10m6-2a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4"></path>
@@ -102,25 +102,25 @@
 <div class="quran-reader-container">
 
     <!-- Surah Header Card -->
-    <div class="quran-card p-6 sm:p-8 text-center mb-8 relative overflow-hidden bg-gradient-to-br from-emerald-900 via-emerald-950 to-slate-950 text-white rounded-2xl shadow-xl border border-emerald-800/50">
+    <div class="quran-card p-6 sm:p-8 text-center mb-8 relative overflow-hidden bg-gradient-to-br from-[#1b594a] via-[#15463a] to-[#0c201a] text-[#e6ece6] rounded-2xl shadow-xl border border-[#598456]/40">
         <!-- Pattern Accent Overlay -->
-        <div class="absolute inset-0 opacity-10 bg-[radial-gradient(#10b981_1px,transparent_1px)] [background-size:16px_16px] pointer-events-none"></div>
+        <div class="absolute inset-0 opacity-10 bg-[radial-gradient(#baae4f_1px,transparent_1px)] [background-size:16px_16px] pointer-events-none"></div>
 
         <!-- Calligraphy Surah Title (Gold) -->
-        <div class="font-calligraphy text-6xl sm:text-7xl text-amber-300 mb-3 drop-shadow-md relative z-10" title="{{ $surah->nameArabic }}">
+        <div class="font-calligraphy text-6xl sm:text-7xl text-[#baae4f] mb-3 drop-shadow-md relative z-10" title="{{ $surah->nameArabic }}">
             {{ $surah->calligraphyGlyph }}
         </div>
 
-        <!-- Latin Name (White) -->
-        <h1 class="text-2xl sm:text-3xl font-bold text-white tracking-tight relative z-10">
+        <!-- Latin Name (White/Light) -->
+        <h1 class="text-2xl sm:text-3xl font-bold text-[#e6ece6] tracking-tight relative z-10">
             Surat {{ $surah->nameLatin }}
         </h1>
 
         <!-- Subtitle & Badges -->
-        <div class="flex flex-wrap items-center justify-center gap-2 text-xs text-emerald-100/90 mt-2 relative z-10 font-medium">
+        <div class="flex flex-wrap items-center justify-center gap-2 text-xs text-[#b4c0b0] mt-2 relative z-10 font-medium">
             <span>"{{ $surah->translatedName }}"</span>
             <span>·</span>
-            <span class="px-2.5 py-0.5 rounded-full bg-emerald-800/80 text-amber-300 font-semibold border border-emerald-700/60 shadow-xs">
+            <span class="px-2.5 py-0.5 rounded-full bg-[#598456]/30 text-[#baae4f] font-semibold border border-[#baae4f]/40 shadow-xs">
                 {{ $surah->revelationType }}
             </span>
             <span>·</span>
@@ -131,7 +131,7 @@
         @if(!empty($surah->audioUrl))
             <div class="mt-4 relative z-10 flex justify-center">
                 <button type="button" 
-                        class="js-play-surah-audio inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-amber-400 hover:bg-amber-300 text-slate-950 font-bold text-xs shadow-md transition-all transform hover:scale-105"
+                        class="js-play-surah-audio inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-[#baae4f] hover:bg-[#d8cd7a] text-[#0c201a] font-bold text-xs shadow-md transition-all transform hover:scale-105"
                         data-audio="{{ $surah->audioUrl }}"
                         data-surah-num="{{ $surah->number }}"
                         data-surah-name="{{ $surah->nameLatin }}"

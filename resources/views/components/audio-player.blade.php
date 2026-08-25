@@ -5,8 +5,10 @@
             
             <!-- Left Info Section -->
             <div class="flex items-center gap-3 min-w-0">
-                <div class="w-10 h-10 rounded-xl bg-emerald-600 text-white flex items-center justify-center font-bold text-lg shrink-0 shadow-sm animate-pulse" id="player-equalizer-icon">
-                    🎵
+                <div class="w-10 h-10 rounded-xl bg-[#1b594a] text-white flex items-center justify-center font-bold shrink-0 shadow-sm animate-pulse" id="player-equalizer-icon">
+                    <svg class="w-5 h-5 text-[#baae4f]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19V6l12-3v13M9 19c0 1.105-1.343 2-3 2s-3-.895-3-2 1.343-2 3-2 3 .895 3 2zm12-3c0 1.105-1.343 2-3 2s-3-.895-3-2 1.343-2 3-2 3 .895 3 2zM9 10l12-3"/>
+                    </svg>
                 </div>
                 <div class="min-w-0">
                     <div id="player-title" class="font-bold text-xs sm:text-sm text-[var(--q-text)] truncate">Murottal Al-Qur'an</div>
@@ -25,7 +27,7 @@
                     </button>
 
                     <!-- Play/Pause Button -->
-                    <button type="button" id="player-btn-play" class="w-9 h-9 rounded-full bg-emerald-600 hover:bg-emerald-700 text-white flex items-center justify-center transition-colors shadow-sm focus:outline-none">
+                    <button type="button" id="player-btn-play" class="w-9 h-9 rounded-full bg-[#1b594a] hover:bg-[#13463a] text-white flex items-center justify-center transition-colors shadow-sm focus:outline-none">
                         <svg id="player-icon-play" class="w-4 h-4 hidden fill-current" viewBox="0 0 24 24">
                             <path d="M8 5v14l11-7z"/>
                         </svg>
@@ -45,7 +47,7 @@
                 <!-- Progress Bar & Time -->
                 <div class="w-full flex items-center gap-2 text-[10px] text-[var(--q-muted)] font-mono">
                     <span id="player-time-current">00:00</span>
-                    <input type="range" id="player-seekbar" min="0" max="100" value="0" step="0.1" class="w-full h-1.5 accent-emerald-600 rounded-lg cursor-pointer bg-[var(--q-border)]">
+                    <input type="range" id="player-seekbar" min="0" max="100" value="0" step="0.1" class="w-full h-1.5 accent-[#1b594a] rounded-lg cursor-pointer bg-[var(--q-border)]">
                     <span id="player-time-total">00:00</span>
                 </div>
             </div>
@@ -53,7 +55,7 @@
             <!-- Right Actions -->
             <div class="flex items-center gap-2 shrink-0">
                 <!-- Mobile Play/Pause Button -->
-                <button type="button" id="player-btn-play-mobile" class="sm:hidden w-8 h-8 rounded-full bg-emerald-600 text-white flex items-center justify-center shadow-xs">
+                <button type="button" id="player-btn-play-mobile" class="sm:hidden w-8 h-8 rounded-full bg-[#1b594a] text-white flex items-center justify-center shadow-xs">
                     <svg id="player-icon-play-m" class="w-3.5 h-3.5 hidden fill-current" viewBox="0 0 24 24">
                         <path d="M8 5v14l11-7z"/>
                     </svg>
@@ -68,8 +70,11 @@
                 </button>
 
                 <!-- Close Audio Player -->
-                <button type="button" id="player-btn-close" class="p-1.5 text-[var(--q-muted)] hover:text-[var(--q-text)] hover:bg-[var(--q-hover)] rounded-lg transition-colors text-base font-bold">
-                    ✕
+                <button type="button" id="player-btn-close" class="p-1.5 text-[var(--q-muted)] hover:text-[var(--q-text)] hover:bg-[var(--q-hover)] rounded-lg transition-colors" title="Tutup Pemutar Audio">
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24">
+                        <line x1="18" y1="6" x2="6" y2="18"></line>
+                        <line x1="6" y1="6" x2="18" y2="18"></line>
+                    </svg>
                 </button>
             </div>
         </div>
@@ -77,7 +82,7 @@
         <!-- Mobile Progress Bar (Shown on small screens below controls) -->
         <div class="sm:hidden w-full flex items-center gap-2 mt-1.5 text-[10px] text-[var(--q-muted)] font-mono">
             <span id="player-time-current-m">00:00</span>
-            <input type="range" id="player-seekbar-m" min="0" max="100" value="0" step="0.1" class="w-full h-1 accent-emerald-600 rounded-lg cursor-pointer bg-[var(--q-border)]">
+            <input type="range" id="player-seekbar-m" min="0" max="100" value="0" step="0.1" class="w-full h-1 accent-[#1b594a] rounded-lg cursor-pointer bg-[var(--q-border)]">
             <span id="player-time-total-m">00:00</span>
         </div>
     </div>

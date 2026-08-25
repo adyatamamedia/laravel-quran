@@ -17,7 +17,7 @@
     $logoLight = $resolveMediaUrl($siteLogo ?? ($settings['site_logo'] ?? null));
     $logoDark = $resolveMediaUrl($siteLogoDark ?? ($settings['site_logo_dark'] ?? null));
 
-    $siteTitleText = $siteTitle ?? ($settings['site_title'] ?? ($settings['site_name'] ?? config('app.name', 'Al-Qur\'an Online')));
+    $siteTitleText = $siteTitle ?? ($settings['site_title'] ?? ($settings['site_name'] ?? (config('quran.site_title') ?? (config('app.name') && config('app.name') !== 'Laravel' ? config('app.name') : 'Quran Laravel Pack'))));
     $siteTaglineText = $siteTagline ?? ($settings['site_tagline'] ?? ($settings['site_description'] ?? 'Portal Al-Qur\'an 30 Juz online lengkap dengan 114 surah, transliterasi Latin, terjemahan Kemenag RI, Tahlil, Wirid & Doa Harian, serta Kitab Maulid Nabi Muhammad SAW.'));
     
     $siteFaviconUrl = $resolveMediaUrl($siteFavicon ?? ($settings['site_favicon'] ?? null)) ?? asset('assets/img/favicon.png');
@@ -91,39 +91,6 @@
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
     <!-- Arabic fonts: OMAR (primary) + Amiri & Scheherazade (fallbacks) -->
     <link href="https://fonts.googleapis.com/css2?family=Amiri:ital,wght@0,400;0,700;1,400&family=Scheherazade+New:wght@400;700&display=swap" rel="stylesheet">
-    <style>
-        /* OMAR & LPMQ Arabic Fonts (Local WOFF2 Binaries) */
-        @font-face {
-            font-family: 'LPMQ Isep Misbah';
-            src: url('/vendor/quran/fonts/lpmq-isep-misbah.woff2') format('woff2');
-            font-weight: normal;
-            font-style: normal;
-            font-display: swap;
-        }
-        @font-face {
-            font-family: 'Omar';
-            src: url('/vendor/quran/fonts/omar.woff2') format('woff2');
-            font-weight: normal;
-            font-style: normal;
-            font-display: swap;
-        }
-        @font-face {
-            font-family: 'surah-name-v2-icon';
-            src: url('/vendor/quran/fonts/surah-name-v2.ttf') format('truetype');
-            font-weight: normal;
-            font-style: normal;
-            font-display: swap;
-        }
-        .font-calligraphy {
-            font-family: 'surah-name-v2-icon', 'Omar', 'Amiri', 'LPMQ Isep Misbah', sans-serif !important;
-            font-style: normal;
-            font-weight: normal;
-            line-height: 1;
-            direction: ltr;
-            display: inline-block;
-        }
-    </style>
-
     <link rel="icon" href="{{ $siteFaviconUrl }}">
     <link rel="apple-touch-icon" href="{{ $siteFaviconUrl }}">
 
@@ -132,6 +99,39 @@
     <script>
         tailwind.config = {
             darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        quran: {
+                            base: '#e6ece6',
+                            emerald: '#1b594a',
+                            sage: '#598456',
+                            gold: '#baae4f',
+                            ash: '#b4c0b0',
+                            slate: '#7c9c8a',
+                        },
+                        emerald: {
+                            50: '#f0f5f1',
+                            100: '#e1ebe4',
+                            200: '#c5d8cb',
+                            300: '#9dbfa6',
+                            400: '#72a37d',
+                            500: '#598456',
+                            600: '#1b594a',
+                            700: '#15483b',
+                            800: '#113a30',
+                            900: '#0e2f27',
+                            950: '#081c17',
+                        },
+                        amber: {
+                            300: '#e2d788',
+                            400: '#baae4f',
+                            500: '#baae4f',
+                            600: '#968b37',
+                        }
+                    }
+                }
+            }
         }
     </script>
     @stack('styles')
@@ -157,8 +157,10 @@
                         class="h-8 lg:h-9 w-auto object-contain">
                 @else
                     <div class="flex items-center gap-2">
-                        <div class="w-8 h-8 rounded-xl bg-emerald-600 flex items-center justify-center text-white font-bold text-base shadow-xs">
-                            📖
+                        <div class="w-8 h-8 rounded-xl bg-[#1b594a] flex items-center justify-center text-white font-bold text-base shadow-xs">
+                            <svg class="w-4 h-4 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"></path>
+                            </svg>
                         </div>
                         <span class="font-bold text-sm text-[var(--q-text)]">{{ $siteTitleText }}</span>
                     </div>
@@ -168,21 +170,21 @@
             <!-- Right Tools -->
             <div class="flex items-center gap-1.5">
                 <!-- Quick Search Trigger -->
-                <button type="button" class="js-open-search p-2 rounded-lg text-[var(--q-muted)] hover:text-[var(--q-text)] hover:bg-[var(--q-hover)] transition-colors" title="Cari Surah">
+                <button type="button" class="js-open-search p-2 rounded-lg text-[var(--q-muted)] hover:text-[#1b594a] dark:hover:text-[#baae4f] hover:bg-[#598456]/15 transition-colors" title="Cari Surah">
                     <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
                     </svg>
                 </button>
 
                 <!-- Bookmarks List Trigger -->
-                <button type="button" class="js-open-bookmarks p-2 rounded-lg text-[var(--q-muted)] hover:text-amber-500 hover:bg-[var(--q-hover)] transition-colors" title="Daftar Bookmark">
+                <button type="button" class="js-open-bookmarks p-2 rounded-lg text-[var(--q-muted)] hover:text-[#baae4f] hover:bg-[#598456]/15 transition-colors" title="Daftar Bookmark">
                     <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 5a2 2 0 012-2h10a2 2 0 012 2v16l-7-3.5L5 21V5z"></path>
                     </svg>
                 </button>
 
                 <!-- Dark Mode Toggle -->
-                <button type="button" class="js-toggle-theme p-2 rounded-lg text-[var(--q-muted)] hover:text-[var(--q-text)] hover:bg-[var(--q-hover)] transition-colors" title="Ubah Tema">
+                <button type="button" class="js-toggle-theme p-2 rounded-lg text-[var(--q-muted)] hover:text-[#1b594a] dark:hover:text-[#baae4f] hover:bg-[#598456]/15 transition-colors" title="Ubah Tema">
                     <svg class="w-5 h-5 hidden dark:block" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z"></path>
                     </svg>
@@ -214,7 +216,11 @@
                         @elseif (!empty($logoDark))
                             <img src="{{ $logoDark }}" alt="{{ $siteTitleText }}" class="h-8 lg:h-9 w-auto object-contain">
                         @else
-                            <div class="w-8 h-8 rounded-xl bg-emerald-600 flex items-center justify-center text-white font-bold text-base shadow-xs">📖</div>
+                            <div class="w-8 h-8 rounded-xl bg-[#1b594a] flex items-center justify-center text-white font-bold text-base shadow-xs">
+                                <svg class="w-4 h-4 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"></path>
+                                </svg>
+                            </div>
                             <span class="font-bold text-base text-[var(--q-text)]">{{ $siteTitleText }}</span>
                         @endif
                     </a>
@@ -228,16 +234,16 @@
                     <h3 class="font-semibold text-xs uppercase tracking-wider text-[var(--q-text)] mb-3">Layanan Islami</h3>
                     <ul class="space-y-2 text-xs sm:text-sm">
                         <li>
-                            <a href="{{ route('quran.home') }}" class="hover:text-emerald-600 transition-colors">Al-Qur'an 30 Juz</a>
+                            <a href="{{ route('quran.home') }}" class="hover:text-[#598456] transition-colors">Al-Qur'an 30 Juz</a>
                         </li>
                         <li>
-                            <a href="{{ route('quran.tahlil') }}" class="hover:text-emerald-600 transition-colors">Tahlil & Yasin</a>
+                            <a href="{{ route('quran.tahlil') }}" class="hover:text-[#598456] transition-colors">Tahlil & Yasin</a>
                         </li>
                         <li>
-                            <a href="{{ route('quran.wirid') }}" class="hover:text-emerald-600 transition-colors">Wirid & Doa Harian</a>
+                            <a href="{{ route('quran.wirid') }}" class="hover:text-[#598456] transition-colors">Wirid & Doa Harian</a>
                         </li>
                         <li>
-                            <a href="{{ route('quran.maulid') }}" class="hover:text-emerald-600 transition-colors">Kitab Maulid Nabi</a>
+                            <a href="{{ route('quran.maulid') }}" class="hover:text-[#598456] transition-colors">Kitab Maulid Nabi</a>
                         </li>
                     </ul>
                 </div>
@@ -247,16 +253,16 @@
                     <h3 class="font-semibold text-xs uppercase tracking-wider text-[var(--q-text)] mb-3">Surah Populer</h3>
                     <ul class="space-y-2 text-xs sm:text-sm">
                         <li>
-                            <a href="{{ route('quran.surah.show', ['surahSlug' => 'al-kahf']) }}" class="hover:text-emerald-600 transition-colors">Surah Al-Kahf</a>
+                            <a href="{{ route('quran.surah.show', ['surahSlug' => 'al-kahf']) }}" class="hover:text-[#598456] transition-colors">Surah Al-Kahf</a>
                         </li>
                         <li>
-                            <a href="{{ route('quran.surah.show', ['surahSlug' => 'al-mulk']) }}" class="hover:text-emerald-600 transition-colors">Surah Al-Mulk</a>
+                            <a href="{{ route('quran.surah.show', ['surahSlug' => 'al-mulk']) }}" class="hover:text-[#598456] transition-colors">Surah Al-Mulk</a>
                         </li>
                         <li>
-                            <a href="{{ route('quran.surah.show', ['surahSlug' => 'ar-rahman']) }}" class="hover:text-emerald-600 transition-colors">Surah Ar-Rahman</a>
+                            <a href="{{ route('quran.surah.show', ['surahSlug' => 'ar-rahman']) }}" class="hover:text-[#598456] transition-colors">Surah Ar-Rahman</a>
                         </li>
                         <li>
-                            <a href="{{ route('quran.surah.show', ['surahSlug' => 'al-waqiah']) }}" class="hover:text-emerald-600 transition-colors">Surah Al-Waqi'ah</a>
+                            <a href="{{ route('quran.surah.show', ['surahSlug' => 'al-waqiah']) }}" class="hover:text-[#598456] transition-colors">Surah Al-Waqi'ah</a>
                         </li>
                     </ul>
                 </div>
@@ -265,8 +271,12 @@
             <!-- Bottom Copyright & Details -->
             <div class="pt-6 border-t border-[var(--q-border)] flex flex-col sm:flex-row items-center justify-between gap-3 text-xs">
                 <p>&copy; {{ date('Y') }} <span class="font-semibold text-[var(--q-text)]">{{ $siteTitleText }}</span>. All rights reserved.</p>
-                <div class="flex items-center gap-4">
-                    <span class="text-[11px] text-[var(--q-muted)]">Data bersumber dari Mushaf Standar Indonesia (LPMQ Kemenag RI)</span>
+                <div class="flex items-center gap-1 text-xs text-[var(--q-muted)]">
+                    <span>Build &amp; Developed with</span>
+                    <svg class="w-4 h-4 text-red-500 fill-red-500 shrink-0" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z"/>
+                    </svg>
+                    <span>by. <a href="https://adyatama.id" target="_blank" rel="noopener" class="font-semibold text-[var(--q-text)] hover:text-[#598456] transition-colors">AdyatamaTECH</a></span>
                 </div>
             </div>
         </div>

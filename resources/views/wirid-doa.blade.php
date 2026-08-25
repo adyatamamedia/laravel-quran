@@ -12,7 +12,7 @@
                 @if(($tab === 'doa' && (!empty($categorySlug) || !empty($search))) || ($tab === 'wirid' && !empty($wiridSlug)))
                     <!-- Back to Category Cards Grid -->
                     <a href="{{ route('quran.wirid', ['tab' => $tab]) }}" 
-                       class="h-9 px-3 flex items-center gap-2 rounded-lg bg-[var(--q-hover)] text-xs font-bold text-[var(--q-text)] border border-[var(--q-border)] hover:bg-emerald-600 hover:text-white transition-colors shrink-0">
+                       class="h-9 px-3 flex items-center gap-2 rounded-lg bg-[var(--q-hover)] text-xs font-bold text-[var(--q-text)] border border-[var(--q-border)] hover:bg-[#1b594a] hover:text-white transition-colors shrink-0">
                         <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"></path>
                         </svg>
@@ -32,19 +32,19 @@
             <!-- Middle: Tab Switcher (Doa | Wirid) -->
             <div class="flex items-center bg-[var(--q-hover)] p-1 rounded-xl border border-[var(--q-border)] shadow-xs">
                 <a href="{{ route('quran.wirid', ['tab' => 'doa']) }}" 
-                   class="px-4 py-1.5 rounded-lg text-xs font-bold transition-all flex items-center gap-1.5 {{ $tab === 'doa' ? 'bg-emerald-600 text-white shadow-sm' : 'text-[var(--q-muted)] hover:text-[var(--q-text)]' }}">
-                    <span>🤲 Doa</span>
+                   class="px-4 py-1.5 rounded-lg text-xs font-bold transition-all flex items-center gap-1.5 {{ $tab === 'doa' ? 'bg-[#1b594a] text-white shadow-sm' : 'text-[var(--q-muted)] hover:text-[#1b594a] dark:hover:text-[#e6ece6] hover:bg-[#598456]/15' }}">
+                    <span>Doa</span>
                 </a>
                 <a href="{{ route('quran.wirid', ['tab' => 'wirid']) }}" 
-                   class="px-4 py-1.5 rounded-lg text-xs font-bold transition-all flex items-center gap-1.5 {{ $tab === 'wirid' ? 'bg-emerald-600 text-white shadow-sm' : 'text-[var(--q-muted)] hover:text-[var(--q-text)]' }}">
-                    <span>📿 Wirid</span>
+                   class="px-4 py-1.5 rounded-lg text-xs font-bold transition-all flex items-center gap-1.5 {{ $tab === 'wirid' ? 'bg-[#1b594a] text-white shadow-sm' : 'text-[var(--q-muted)] hover:text-[#1b594a] dark:hover:text-[#e6ece6] hover:bg-[#598456]/15' }}">
+                    <span>Wirid</span>
                 </a>
             </div>
 
             <!-- Right: Settings Drawer Button -->
             <div class="flex items-center gap-2">
                 <button type="button" 
-                        class="js-open-settings h-9 w-9 flex items-center justify-center rounded-lg bg-[var(--q-hover)] border border-[var(--q-border)] text-[var(--q-text)] hover:text-emerald-600 hover:border-emerald-500 transition-colors shrink-0" 
+                        class="js-open-settings h-9 w-9 flex items-center justify-center rounded-lg bg-[var(--q-hover)] border border-[var(--q-border)] text-[var(--q-text)] hover:text-[#598456] hover:border-[#598456] transition-colors shrink-0" 
                         title="Pengaturan Tampilan Pembaca">
                     <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6V4m0 2a2 2 0 100 4m0-4a2 2 0 110 4m-6 8a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4m6 6v10m6-2a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4"></path>
@@ -64,11 +64,13 @@
 
         @if(empty($categorySlug) && empty($search))
             <!-- MODE A: DOA CATEGORIES INDEX GRID (EXACT MATCH SCREENSHOT 2) -->
-            <div class="quran-card p-6 sm:p-8 text-center mb-6 relative overflow-hidden bg-gradient-to-br from-emerald-900 via-emerald-950 to-slate-950 text-white rounded-2xl shadow-xl border border-emerald-800/50">
-                <div class="absolute inset-0 opacity-10 bg-[radial-gradient(#10b981_1px,transparent_1px)] [background-size:16px_16px] pointer-events-none"></div>
-                <div class="text-5xl sm:text-6xl mb-2 drop-shadow-md relative z-10">🤲</div>
-                <h1 class="text-2xl sm:text-3xl font-bold text-white tracking-tight relative z-10">Kategori Doa Islami</h1>
-                <p class="text-xs text-emerald-100/90 mt-1 relative z-10 font-medium">Pilih Kategori Doa Harian & Pilihan ASWAJA</p>
+            <div class="quran-card p-6 sm:p-8 text-center mb-6 relative overflow-hidden bg-gradient-to-br from-[#1b594a] via-[#15463a] to-[#0c201a] text-[#e6ece6] rounded-2xl shadow-xl border border-[#598456]/40">
+                <div class="absolute inset-0 opacity-10 bg-[radial-gradient(#baae4f_1px,transparent_1px)] [background-size:16px_16px] pointer-events-none"></div>
+                <div class="mb-3 relative z-10 flex justify-center">
+                    <img src="{{ asset('vendor/quran/images/wirid.png') }}" alt="Doa" class="w-16 h-16 sm:w-20 sm:h-20 object-contain drop-shadow-md">
+                </div>
+                <h1 class="text-2xl sm:text-3xl font-bold text-[#e6ece6] tracking-tight relative z-10">Kategori Doa Islami</h1>
+                <p class="text-xs text-[#b4c0b0] mt-1 relative z-10 font-medium">Pilih Kategori Doa Harian & Pilihan ASWAJA</p>
             </div>
 
 
@@ -80,14 +82,14 @@
                     <a href="{{ route('quran.wirid', ['tab' => 'doa', 'kategori' => $cat['slug']]) }}" 
                        class="quran-card quran-card-hover p-0 flex items-stretch rounded-2xl border border-[var(--q-border)] bg-[var(--q-surface)] overflow-hidden group transition-all shadow-2xs">
                         
-                        <!-- Left Number Box (Light Green Rectangle) -->
-                        <div class="w-14 sm:w-16 bg-emerald-500/10 dark:bg-emerald-950/40 text-emerald-600 dark:text-emerald-400 font-bold text-lg sm:text-xl flex items-center justify-center shrink-0 group-hover:bg-emerald-600 group-hover:text-white transition-colors">
+                        <!-- Left Number Box -->
+                        <div class="w-14 sm:w-16 bg-[#598456]/15 dark:bg-[#598456]/25 text-[#1b594a] dark:text-[#e6ece6] font-bold text-lg sm:text-xl flex items-center justify-center shrink-0 group-hover:bg-[#1b594a] group-hover:text-white dark:group-hover:bg-[#598456] transition-colors">
                             {{ $loop->iteration }}
                         </div>
 
                         <!-- Right Content -->
                         <div class="p-3.5 sm:p-4 flex-1 min-w-0 flex flex-col justify-center">
-                            <h3 class="font-bold text-sm sm:text-base text-[var(--q-text)] group-hover:text-emerald-600 transition-colors truncate">
+                            <h3 class="font-bold text-sm sm:text-base text-[var(--q-text)] group-hover:text-[#598456] dark:group-hover:text-[#e0d68f] transition-colors truncate">
                                 {{ $cat['name'] }}
                             </h3>
                             <p class="text-xs text-[var(--q-muted)] mt-0.5 font-medium">
@@ -100,13 +102,15 @@
 
         @else
             <!-- MODE B: TAHLIL-STYLE READER VIEW FOR SELECTED DOA CATEGORY -->
-            <div class="quran-card p-6 sm:p-8 text-center mb-8 relative overflow-hidden bg-gradient-to-br from-emerald-900 via-emerald-950 to-slate-950 text-white rounded-2xl shadow-xl border border-emerald-800/50">
-                <div class="absolute inset-0 opacity-10 bg-[radial-gradient(#10b981_1px,transparent_1px)] [background-size:16px_16px] pointer-events-none"></div>
-                <div class="text-5xl sm:text-6xl mb-3 drop-shadow-md relative z-10">🤲</div>
-                <h1 class="text-2xl sm:text-3xl font-bold text-white tracking-tight relative z-10">
+            <div class="quran-card p-6 sm:p-8 text-center mb-8 relative overflow-hidden bg-gradient-to-br from-[#1b594a] via-[#15463a] to-[#0c201a] text-[#e6ece6] rounded-2xl shadow-xl border border-[#598456]/40">
+                <div class="absolute inset-0 opacity-10 bg-[radial-gradient(#baae4f_1px,transparent_1px)] [background-size:16px_16px] pointer-events-none"></div>
+                <div class="mb-3 relative z-10 flex justify-center">
+                    <img src="{{ asset('vendor/quran/images/wirid.png') }}" alt="Doa" class="w-16 h-16 sm:w-20 sm:h-20 object-contain drop-shadow-md">
+                </div>
+                <h1 class="text-2xl sm:text-3xl font-bold text-[#e6ece6] tracking-tight relative z-10">
                     {{ $activeDoaCategory['name'] ?? (!empty($search) ? 'Hasil Pencarian: "'.$search.'"' : 'Kumpulan Doa') }}
                 </h1>
-                <p class="text-xs text-emerald-100/90 mt-2 relative z-10 font-medium">Rangkaian Bacaan Doa ASWAJA Teks Utsmani, Transliterasi, & Terjemahan</p>
+                <p class="text-xs text-[#b4c0b0] mt-2 relative z-10 font-medium">Rangkaian Bacaan Doa ASWAJA Teks Utsmani, Transliterasi, & Terjemahan</p>
             </div>
 
             @if(!empty($doaItems))
@@ -247,11 +251,13 @@
 
         @if(empty($wiridSlug))
             <!-- MODE C: WIRID CATEGORIES INDEX GRID (EXACT MATCH SCREENSHOT 1) -->
-            <div class="quran-card p-6 sm:p-8 text-center mb-6 relative overflow-hidden bg-gradient-to-br from-emerald-900 via-emerald-950 to-slate-950 text-white rounded-2xl shadow-xl border border-emerald-800/50">
-                <div class="absolute inset-0 opacity-10 bg-[radial-gradient(#10b981_1px,transparent_1px)] [background-size:16px_16px] pointer-events-none"></div>
-                <div class="text-5xl sm:text-6xl mb-2 drop-shadow-md relative z-10">📿</div>
-                <h1 class="text-2xl sm:text-3xl font-bold text-white tracking-tight relative z-10">Koleksi Wirid & Dzikir</h1>
-                <p class="text-xs text-emerald-100/90 mt-1 relative z-10 font-medium">Pilih Rangkaian Wirid, Ratib, Hizib, & Manaqib ASWAJA</p>
+            <div class="quran-card p-6 sm:p-8 text-center mb-6 relative overflow-hidden bg-gradient-to-br from-[#1b594a] via-[#15463a] to-[#0c201a] text-[#e6ece6] rounded-2xl shadow-xl border border-[#598456]/40">
+                <div class="absolute inset-0 opacity-10 bg-[radial-gradient(#baae4f_1px,transparent_1px)] [background-size:16px_16px] pointer-events-none"></div>
+                <div class="mb-3 relative z-10 flex justify-center">
+                    <img src="{{ asset('vendor/quran/images/wirid.png') }}" alt="Wirid" class="w-16 h-16 sm:w-20 sm:h-20 object-contain drop-shadow-md">
+                </div>
+                <h1 class="text-2xl sm:text-3xl font-bold text-[#e6ece6] tracking-tight relative z-10">Koleksi Wirid & Dzikir</h1>
+                <p class="text-xs text-[#b4c0b0] mt-1 relative z-10 font-medium">Pilih Rangkaian Wirid, Ratib, Hizib, & Manaqib ASWAJA</p>
             </div>
 
             <!-- 2-COLUMN WIRID CATEGORIES CARDS GRID (EXACT SCREENSHOT 1 MATCH) -->
@@ -260,14 +266,14 @@
                     <a href="{{ route('quran.wirid', ['tab' => 'wirid', 'koleksi' => $col['slug']]) }}" 
                        class="quran-card quran-card-hover p-0 flex items-stretch rounded-2xl border border-[var(--q-border)] bg-[var(--q-surface)] overflow-hidden group transition-all shadow-2xs">
                         
-                        <!-- Left Number Box (Light Green Rectangle) -->
-                        <div class="w-14 sm:w-16 bg-emerald-500/10 dark:bg-emerald-950/40 text-emerald-600 dark:text-emerald-400 font-bold text-lg sm:text-xl flex items-center justify-center shrink-0 group-hover:bg-emerald-600 group-hover:text-white transition-colors">
+                        <!-- Left Number Box -->
+                        <div class="w-14 sm:w-16 bg-[#598456]/15 dark:bg-[#598456]/25 text-[#1b594a] dark:text-[#e6ece6] font-bold text-lg sm:text-xl flex items-center justify-center shrink-0 group-hover:bg-[#1b594a] group-hover:text-white dark:group-hover:bg-[#598456] transition-colors">
                             {{ $loop->iteration }}
                         </div>
 
                         <!-- Right Content -->
                         <div class="p-3.5 sm:p-4 flex-1 min-w-0 flex flex-col justify-center">
-                            <h3 class="font-bold text-sm sm:text-base text-[var(--q-text)] group-hover:text-emerald-600 transition-colors truncate">
+                            <h3 class="font-bold text-sm sm:text-base text-[var(--q-text)] group-hover:text-[#598456] dark:group-hover:text-[#e0d68f] transition-colors truncate">
                                 {{ $col['name'] }}
                             </h3>
                             <p class="text-xs text-[var(--q-muted)] mt-0.5 font-medium">
@@ -280,13 +286,15 @@
 
         @else
             <!-- MODE D: TAHLIL-STYLE READER VIEW FOR SELECTED WIRID COLLECTION -->
-            <div class="quran-card p-6 sm:p-8 text-center mb-8 relative overflow-hidden bg-gradient-to-br from-emerald-900 via-emerald-950 to-slate-950 text-white rounded-2xl shadow-xl border border-emerald-800/50">
-                <div class="absolute inset-0 opacity-10 bg-[radial-gradient(#10b981_1px,transparent_1px)] [background-size:16px_16px] pointer-events-none"></div>
-                <div class="text-5xl sm:text-6xl mb-3 drop-shadow-md relative z-10">📿</div>
-                <h1 class="text-2xl sm:text-3xl font-bold text-white tracking-tight relative z-10">
+            <div class="quran-card p-6 sm:p-8 text-center mb-8 relative overflow-hidden bg-gradient-to-br from-[#1b594a] via-[#15463a] to-[#0c201a] text-[#e6ece6] rounded-2xl shadow-xl border border-[#598456]/40">
+                <div class="absolute inset-0 opacity-10 bg-[radial-gradient(#baae4f_1px,transparent_1px)] [background-size:16px_16px] pointer-events-none"></div>
+                <div class="mb-3 relative z-10 flex justify-center">
+                    <img src="{{ asset('vendor/quran/images/wirid.png') }}" alt="Wirid" class="w-16 h-16 sm:w-20 sm:h-20 object-contain drop-shadow-md">
+                </div>
+                <h1 class="text-2xl sm:text-3xl font-bold text-[#e6ece6] tracking-tight relative z-10">
                     {{ $activeWiridCollection['name'] ?? 'Wirid' }}
                 </h1>
-                <p class="text-xs text-emerald-100/90 mt-2 relative z-10 font-medium">
+                <p class="text-xs text-[#b4c0b0] mt-2 relative z-10 font-medium">
                     {{ $activeWiridCollection['description'] ?? 'Rangkaian Dzikir & Wirid ASWAJA' }}
                 </p>
             </div>
@@ -543,7 +551,9 @@
         <div class="flex items-center justify-between border-b border-[var(--q-border)] pb-3 mb-4">
             <div class="flex items-center gap-2.5">
                 <div class="w-8 h-8 rounded-lg bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 flex items-center justify-center font-bold text-base">
-                    📖
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"></path>
+                    </svg>
                 </div>
                 <div>
                     <h3 class="font-bold text-sm sm:text-base text-[var(--q-text)]" id="modal-source-title">Sumber & Rujukan Doa</h3>

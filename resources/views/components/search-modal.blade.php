@@ -1,4 +1,4 @@
-<div id="quran-search-modal" class="fixed inset-0 z-50 hidden flex items-start justify-center pt-12 sm:pt-16 px-4">
+<div id="quran-search-modal" class="fixed inset-0 z-50 hidden flex items-start justify-center pt-3 sm:pt-14 px-3 sm:px-4">
     <!-- Backdrop -->
     <div class="js-close-search fixed inset-0 quran-modal-backdrop"></div>
 
@@ -49,74 +49,83 @@
 
         $defaultTab = $isWirid ? 'doa' : ($isMaulid ? 'maulid' : ($isTahlil ? 'wirid' : 'all'));
         $placeholder = $isWirid 
-            ? 'Cari doa (wudhu, rezeki...), kategori, atau wirid...' 
+            ? 'Cari doa (wudhu, rezeki...), kategori...' 
             : ($isMaulid 
-                ? 'Cari kitab maulid (Diba\'i, Simtudduror...)' 
+                ? 'Cari kitab maulid...' 
                 : ($isTahlil 
-                    ? 'Cari tahlil, yasin, atau dzikir...' 
-                    : 'Cari surah (Al-Baqarah, Yasin...), doa, wirid, maulid...'));
+                    ? 'Cari tahlil, yasin, dzikir...' 
+                    : 'Cari surah, doa, wirid, maulid...'));
     @endphp
 
-    <!-- Modal Content -->
-    <div class="relative w-full max-w-lg bg-[var(--q-surface)] rounded-2xl shadow-2xl border border-[var(--q-border)] overflow-hidden z-10">
+    <!-- Modal Content (Compact & Responsive) -->
+    <div class="relative w-full max-w-lg bg-[var(--q-surface)] rounded-2xl shadow-2xl border border-[var(--q-border)] overflow-hidden z-10 flex flex-col max-h-[85vh] sm:max-h-[80vh]">
         
         <!-- Search Input Header -->
-        <div class="p-3.5 sm:p-4 border-b border-[var(--q-border)] space-y-3">
-            <div class="flex items-center gap-3">
-                <svg class="w-5 h-5 text-[var(--q-muted)] shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
+        <div class="p-2.5 sm:p-3.5 border-b border-[var(--q-border)] space-y-2 shrink-0">
+            <!-- Search Bar Input Box -->
+            <div class="flex items-center gap-2 px-3 py-2 rounded-xl bg-[var(--q-hover)] border border-[var(--q-border)]/60 focus-within:border-[#598456] focus-within:ring-1 focus-within:ring-[#598456] transition-all">
+                <svg class="w-4 h-4 text-[var(--q-muted)] shrink-0" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24">
+                    <circle cx="11" cy="11" r="8"></circle>
+                    <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
                 </svg>
                 <input type="text" 
                        id="quran-search-input" 
                        placeholder="{{ $placeholder }}" 
-                       class="w-full bg-transparent border-none text-[var(--q-text)] placeholder-[var(--q-muted)] focus:outline-none text-sm sm:text-base">
-                <button type="button" class="js-close-search text-xs px-2 py-1 bg-[var(--q-hover)] text-[var(--q-muted)] rounded hover:text-[var(--q-text)] font-semibold shrink-0">
-                    ESC
+                       autocomplete="off"
+                       class="w-full bg-transparent border-none text-xs sm:text-sm text-[var(--q-text)] placeholder-[var(--q-muted)] focus:outline-none">
+                
+                <!-- Quick Close Button -->
+                <button type="button" class="js-close-search p-1 text-[var(--q-muted)] hover:text-[var(--q-text)] rounded-lg hover:bg-[var(--q-surface)] transition-colors shrink-0" title="Tutup">
+                    <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24">
+                        <line x1="18" y1="6" x2="6" y2="18"></line>
+                        <line x1="6" y1="6" x2="18" y2="18"></line>
+                    </svg>
                 </button>
             </div>
 
-            <!-- Context Filter Pills -->
-            <div class="flex items-center gap-1.5 overflow-x-auto pb-0.5 scrollbar-none text-xs" id="search-filter-pills">
-                <button type="button" data-filter="all" class="js-search-filter-btn px-2.5 py-1 rounded-lg border border-[var(--q-border)] font-medium transition-colors {{ $defaultTab === 'all' ? 'bg-emerald-600 text-white border-emerald-600' : 'bg-[var(--q-surface)] text-[var(--q-muted)] hover:text-[var(--q-text)]' }}">
+            <!-- Compact Context Filter Pills -->
+            <div class="flex items-center gap-1 overflow-x-auto pb-0.5 scrollbar-none text-[11px]" id="search-filter-pills">
+                <button type="button" data-filter="all" class="js-search-filter-btn q-tab-btn px-2.5 py-1 rounded-lg font-semibold shrink-0 {{ $defaultTab === 'all' ? 'is-active' : '' }}">
                     Semua
                 </button>
-                <button type="button" data-filter="surah" class="js-search-filter-btn px-2.5 py-1 rounded-lg border border-[var(--q-border)] font-medium transition-colors {{ $defaultTab === 'surah' ? 'bg-emerald-600 text-white border-emerald-600' : 'bg-[var(--q-surface)] text-[var(--q-muted)] hover:text-[var(--q-text)]' }}">
-                    📖 Surah
+                <button type="button" data-filter="surah" class="js-search-filter-btn q-tab-btn px-2.5 py-1 rounded-lg font-semibold shrink-0 {{ $defaultTab === 'surah' ? 'is-active' : '' }}">
+                    Surah
                 </button>
-                <button type="button" data-filter="doa" class="js-search-filter-btn px-2.5 py-1 rounded-lg border border-[var(--q-border)] font-medium transition-colors {{ $defaultTab === 'doa' ? 'bg-emerald-600 text-white border-emerald-600' : 'bg-[var(--q-surface)] text-[var(--q-muted)] hover:text-[var(--q-text)]' }}">
-                    🤲 Doa
+                <button type="button" data-filter="doa" class="js-search-filter-btn q-tab-btn px-2.5 py-1 rounded-lg font-semibold shrink-0 {{ $defaultTab === 'doa' ? 'is-active' : '' }}">
+                    Doa
                 </button>
-                <button type="button" data-filter="wirid" class="js-search-filter-btn px-2.5 py-1 rounded-lg border border-[var(--q-border)] font-medium transition-colors {{ $defaultTab === 'wirid' ? 'bg-emerald-600 text-white border-emerald-600' : 'bg-[var(--q-surface)] text-[var(--q-muted)] hover:text-[var(--q-text)]' }}">
-                    📿 Wirid
+                <button type="button" data-filter="wirid" class="js-search-filter-btn q-tab-btn px-2.5 py-1 rounded-lg font-semibold shrink-0 {{ $defaultTab === 'wirid' ? 'is-active' : '' }}">
+                    Wirid
                 </button>
-                <button type="button" data-filter="maulid" class="js-search-filter-btn px-2.5 py-1 rounded-lg border border-[var(--q-border)] font-medium transition-colors {{ $defaultTab === 'maulid' ? 'bg-emerald-600 text-white border-emerald-600' : 'bg-[var(--q-surface)] text-[var(--q-muted)] hover:text-[var(--q-text)]' }}">
-                    📗 Maulid
+                <button type="button" data-filter="maulid" class="js-search-filter-btn q-tab-btn px-2.5 py-1 rounded-lg font-semibold shrink-0 {{ $defaultTab === 'maulid' ? 'is-active' : '' }}">
+                    Maulid
                 </button>
             </div>
         </div>
 
-        <!-- Search Results List -->
-        <div class="max-h-96 overflow-y-auto p-2 space-y-1" id="search-modal-results">
+        <!-- Search Results List (Compact Rows) -->
+        <div class="overflow-y-auto p-1.5 sm:p-2 space-y-1 flex-1" id="search-modal-results">
             
             <!-- 1. Surahs -->
             @foreach($surahList as $num => $s)
                 <a href="{{ route('quran.surah.show', ['surahSlug' => $s['slug']]) }}" 
-                   class="js-search-item flex items-center justify-between p-2.5 rounded-xl hover:bg-[var(--q-hover)] transition-colors"
-                   data-type="surah"
-                   data-search="{{ $num }} {{ $s['latin'] }} {{ $s['translation'] ?? '' }} {{ $s['slug'] }} surah quran">
-                    <div class="flex items-center gap-3">
-                        <span class="w-8 h-8 rounded-lg bg-[var(--q-hover)] text-[var(--q-muted)] font-semibold text-xs flex items-center justify-center shrink-0">
+                    class="js-search-item flex items-center justify-between p-2 rounded-xl hover:bg-[var(--q-hover)] transition-colors group"
+                    data-type="surah"
+                    data-search="{{ $num }} {{ $s['latin'] }} {{ $s['translation'] ?? '' }} {{ $s['slug'] }} surah quran">
+                    <div class="flex items-center gap-2.5 min-w-0">
+                        <span class="w-7 h-7 rounded-lg bg-[var(--q-hover)] group-hover:bg-[#1b594a] group-hover:text-white dark:group-hover:bg-[#598456] text-[var(--q-text)] font-bold text-xs flex items-center justify-center shrink-0 transition-colors">
                             {{ $num }}
                         </span>
-                        <div>
-                            <div class="flex items-center gap-2">
-                                <span class="font-semibold text-sm text-[var(--q-text)]">{{ $s['latin'] }}</span>
-                                <span class="text-[10px] px-1.5 py-0.5 rounded bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 font-bold uppercase">Surah</span>
+                        <div class="min-w-0">
+                            <div class="font-bold text-xs sm:text-sm text-[var(--q-text)] group-hover:text-[#598456] dark:group-hover:text-[#e0d68f] transition-colors truncate">
+                                {{ $s['latin'] }}
                             </div>
-                            <div class="text-xs text-[var(--q-muted)] mt-0.5">{{ $s['translation'] ?? '' }} · {{ $s['count'] }} Ayat</div>
+                            <div class="text-[11px] text-[var(--q-muted)] truncate">
+                                {{ $s['translation'] ?? '' }}
+                            </div>
                         </div>
                     </div>
-                    <span class="font-calligraphy text-2xl text-emerald-900 dark:text-emerald-300" title="{{ $s['arabic'] }}">
+                    <span class="font-calligraphy text-2xl text-[#1b594a] dark:text-[#baae4f] shrink-0 group-hover:scale-105 transition-transform" title="{{ $s['arabic'] }}">
                         {{ mb_chr($num === 102 ? 0xE102 : (0xE000 + $num), 'UTF-8') }}
                     </span>
                 </a>
@@ -125,23 +134,27 @@
             <!-- 2. Doa Categories -->
             @foreach($doaCategoriesList as $cat)
                 <a href="{{ route('quran.wirid', ['tab' => 'doa', 'kategori' => $cat['slug']]) }}" 
-                   class="js-search-item flex items-center justify-between p-2.5 rounded-xl hover:bg-[var(--q-hover)] transition-colors"
-                   data-type="doa"
-                   data-search="doa {{ $cat['name'] }} {{ $cat['desc'] }} {{ $cat['slug'] }}">
-                    <div class="flex items-center gap-3">
-                        <span class="w-8 h-8 rounded-lg bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 font-bold text-sm flex items-center justify-center shrink-0">
-                            🤲
+                    class="js-search-item flex items-center justify-between p-2 rounded-xl hover:bg-[var(--q-hover)] transition-colors group"
+                    data-type="doa"
+                    data-search="doa {{ $cat['name'] }} {{ $cat['desc'] }} {{ $cat['slug'] }}">
+                    <div class="flex items-center gap-2.5 min-w-0">
+                        <span class="w-7 h-7 rounded-lg bg-[#598456]/15 flex items-center justify-center shrink-0">
+                            <img src="{{ asset('vendor/quran/images/wirid.png') }}" class="w-4 h-4 object-contain" alt="Doa">
                         </span>
-                        <div>
-                            <div class="flex items-center gap-2">
-                                <span class="font-semibold text-sm text-[var(--q-text)]">{{ $cat['name'] }}</span>
-                                <span class="text-[10px] px-1.5 py-0.5 rounded bg-teal-500/10 text-teal-600 dark:text-teal-400 font-bold uppercase">Doa</span>
+                        <div class="min-w-0">
+                            <div class="flex items-center gap-1.5">
+                                <span class="font-bold text-xs sm:text-sm text-[var(--q-text)] group-hover:text-[#598456] dark:group-hover:text-[#e0d68f] transition-colors truncate">
+                                    {{ $cat['name'] }}
+                                </span>
+                                <span class="text-[9px] px-1.5 py-0.5 rounded font-bold uppercase tracking-wider bg-[#598456]/20 text-[#1b594a] dark:text-[#baae4f] shrink-0">
+                                    Doa
+                                </span>
                             </div>
-                            <div class="text-xs text-[var(--q-muted)] mt-0.5">{{ $cat['desc'] }}</div>
+                            <div class="text-[11px] text-[var(--q-muted)] truncate">{{ $cat['desc'] }}</div>
                         </div>
                     </div>
-                    <svg class="w-4 h-4 text-[var(--q-muted)]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
+                    <svg class="w-3.5 h-3.5 text-[var(--q-muted)] group-hover:text-[var(--q-text)] group-hover:translate-x-0.5 transition-all shrink-0" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24">
+                        <polyline points="9 18 15 12 9 6"></polyline>
                     </svg>
                 </a>
             @endforeach
@@ -149,23 +162,27 @@
             <!-- 3. Wirid Collections -->
             @foreach($wiridList as $w)
                 <a href="{{ route('quran.wirid', ['tab' => 'wirid', 'koleksi' => $w['slug']]) }}" 
-                   class="js-search-item flex items-center justify-between p-2.5 rounded-xl hover:bg-[var(--q-hover)] transition-colors"
-                   data-type="wirid"
-                   data-search="wirid dzikir {{ $w['name'] }} {{ $w['desc'] }} {{ $w['slug'] }}">
-                    <div class="flex items-center gap-3">
-                        <span class="w-8 h-8 rounded-lg bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 font-bold text-sm flex items-center justify-center shrink-0">
-                            📿
+                    class="js-search-item flex items-center justify-between p-2 rounded-xl hover:bg-[var(--q-hover)] transition-colors group"
+                    data-type="wirid"
+                    data-search="wirid dzikir {{ $w['name'] }} {{ $w['desc'] }} {{ $w['slug'] }}">
+                    <div class="flex items-center gap-2.5 min-w-0">
+                        <span class="w-7 h-7 rounded-lg bg-[#598456]/15 flex items-center justify-center shrink-0">
+                            <img src="{{ asset('vendor/quran/images/wirid.png') }}" class="w-4 h-4 object-contain" alt="Wirid">
                         </span>
-                        <div>
-                            <div class="flex items-center gap-2">
-                                <span class="font-semibold text-sm text-[var(--q-text)]">{{ $w['name'] }}</span>
-                                <span class="text-[10px] px-1.5 py-0.5 rounded bg-blue-500/10 text-blue-600 dark:text-blue-400 font-bold uppercase">Wirid</span>
+                        <div class="min-w-0">
+                            <div class="flex items-center gap-1.5">
+                                <span class="font-bold text-xs sm:text-sm text-[var(--q-text)] group-hover:text-[#598456] dark:group-hover:text-[#e0d68f] transition-colors truncate">
+                                    {{ $w['name'] }}
+                                </span>
+                                <span class="text-[9px] px-1.5 py-0.5 rounded font-bold uppercase tracking-wider bg-[#598456]/20 text-[#1b594a] dark:text-[#baae4f] shrink-0">
+                                    Wirid
+                                </span>
                             </div>
-                            <div class="text-xs text-[var(--q-muted)] mt-0.5">{{ $w['desc'] }}</div>
+                            <div class="text-[11px] text-[var(--q-muted)] truncate">{{ $w['desc'] }}</div>
                         </div>
                     </div>
-                    <svg class="w-4 h-4 text-[var(--q-muted)]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
+                    <svg class="w-3.5 h-3.5 text-[var(--q-muted)] group-hover:text-[var(--q-text)] group-hover:translate-x-0.5 transition-all shrink-0" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24">
+                        <polyline points="9 18 15 12 9 6"></polyline>
                     </svg>
                 </a>
             @endforeach
@@ -173,31 +190,40 @@
             <!-- 4. Maulid Collections -->
             @foreach($maulidList as $m)
                 <a href="{{ route('quran.maulid', ['koleksi' => $m['slug']]) }}" 
-                   class="js-search-item flex items-center justify-between p-2.5 rounded-xl hover:bg-[var(--q-hover)] transition-colors"
-                   data-type="maulid"
-                   data-search="maulid nabi sholawat {{ $m['name'] }} {{ $m['desc'] }} {{ $m['slug'] }}">
-                    <div class="flex items-center gap-3">
-                        <span class="w-8 h-8 rounded-lg bg-amber-500/10 text-amber-600 dark:text-amber-400 font-bold text-sm flex items-center justify-center shrink-0">
-                            📗
+                    class="js-search-item flex items-center justify-between p-2 rounded-xl hover:bg-[var(--q-hover)] transition-colors group"
+                    data-type="maulid"
+                    data-search="maulid nabi sholawat {{ $m['name'] }} {{ $m['desc'] }} {{ $m['slug'] }}">
+                    <div class="flex items-center gap-2.5 min-w-0">
+                        <span class="w-7 h-7 rounded-lg bg-[#598456]/15 flex items-center justify-center shrink-0">
+                            <img src="{{ asset('vendor/quran/images/maulid.png') }}" class="w-4 h-4 object-contain" alt="Maulid">
                         </span>
-                        <div>
-                            <div class="flex items-center gap-2">
-                                <span class="font-semibold text-sm text-[var(--q-text)]">{{ $m['name'] }}</span>
-                                <span class="text-[10px] px-1.5 py-0.5 rounded bg-amber-500/10 text-amber-600 dark:text-amber-400 font-bold uppercase">Maulid</span>
+                        <div class="min-w-0">
+                            <div class="flex items-center gap-1.5">
+                                <span class="font-bold text-xs sm:text-sm text-[var(--q-text)] group-hover:text-[#598456] dark:group-hover:text-[#e0d68f] transition-colors truncate">
+                                    {{ $m['name'] }}
+                                </span>
+                                <span class="text-[9px] px-1.5 py-0.5 rounded font-bold uppercase tracking-wider bg-[#598456]/20 text-[#1b594a] dark:text-[#baae4f] shrink-0">
+                                    Maulid
+                                </span>
                             </div>
-                            <div class="text-xs text-[var(--q-muted)] mt-0.5">{{ $m['desc'] }}</div>
+                            <div class="text-[11px] text-[var(--q-muted)] truncate">{{ $m['desc'] }}</div>
                         </div>
                     </div>
-                    <svg class="w-4 h-4 text-[var(--q-muted)]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
+                    <svg class="w-3.5 h-3.5 text-[var(--q-muted)] group-hover:text-[var(--q-text)] group-hover:translate-x-0.5 transition-all shrink-0" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24">
+                        <polyline points="9 18 15 12 9 6"></polyline>
                     </svg>
                 </a>
             @endforeach
 
             <!-- Empty Search Result -->
-            <div id="search-modal-empty" class="hidden p-8 text-center text-[var(--q-muted)]">
-                <p class="text-sm font-semibold text-[var(--q-text)]">Tidak ada hasil ditemukan.</p>
-                <p class="text-xs mt-1">Coba kata kunci pencarian yang lain.</p>
+            <div id="search-modal-empty" class="hidden py-8 px-4 text-center text-[var(--q-muted)]">
+                <svg class="w-8 h-8 mx-auto text-[var(--q-muted)]/60 mb-2" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24">
+                    <circle cx="11" cy="11" r="8"></circle>
+                    <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+                    <line x1="8" y1="11" x2="14" y2="11"></line>
+                </svg>
+                <p class="text-xs font-bold text-[var(--q-text)]">Tidak ada hasil ditemukan</p>
+                <p class="text-[11px] text-[var(--q-muted)] mt-0.5">Coba kata kunci pencarian yang lain.</p>
             </div>
         </div>
     </div>

@@ -11,7 +11,7 @@
         <div class="flex items-center gap-2">
             @if(!empty($slug))
                 <a href="{{ route('quran.maulid') }}" 
-                   class="h-9 px-3 flex items-center gap-2 rounded-lg bg-[var(--q-hover)] text-xs font-bold text-[var(--q-text)] border border-[var(--q-border)] hover:bg-amber-600 hover:text-white transition-colors shrink-0">
+                   class="h-9 px-3 flex items-center gap-2 rounded-lg bg-[var(--q-hover)] text-xs font-bold text-[var(--q-text)] border border-[var(--q-border)] hover:bg-[#1b594a] hover:text-white transition-colors shrink-0">
                     <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"></path>
                     </svg>
@@ -20,7 +20,7 @@
             @else
                 <a href="{{ route('quran.home') }}" 
                    class="h-9 w-9 flex items-center justify-center rounded-lg bg-[var(--q-hover)] text-[var(--q-muted)] hover:text-[var(--q-text)] hover:bg-[var(--q-border)]/50 transition-colors shrink-0" 
-                   title="Kembali ke Beranda">
+                    title="Kembali ke Beranda">
                     <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"></path>
                     </svg>
@@ -30,13 +30,13 @@
 
         <!-- Middle: Page Title -->
         <div class="text-center">
-            <p class="text-xs font-bold text-[var(--q-muted)] uppercase tracking-widest">✨ Maulid Nabi</p>
+            <p class="text-xs font-bold text-[var(--q-muted)] uppercase tracking-widest">Maulid Nabi</p>
         </div>
 
         <!-- Right: Settings -->
         <div class="flex items-center gap-2">
             <button type="button" 
-                    class="js-open-settings h-9 w-9 flex items-center justify-center rounded-lg bg-[var(--q-hover)] border border-[var(--q-border)] text-[var(--q-text)] hover:text-amber-600 hover:border-amber-500 transition-colors shrink-0" 
+                    class="js-open-settings h-9 w-9 flex items-center justify-center rounded-lg bg-[var(--q-hover)] border border-[var(--q-border)] text-[var(--q-text)] hover:text-[#598456] hover:border-[#598456] transition-colors shrink-0" 
                     title="Pengaturan Tampilan">
                 <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6V4m0 2a2 2 0 100 4m0-4a2 2 0 110 4m-6 8a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4m6 6v10m6-2a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4"></path>
@@ -54,11 +54,13 @@
     <!-- ========================================== -->
     @if(empty($slug))
 
-        <div class="quran-card p-6 sm:p-8 text-center mb-6 relative overflow-hidden bg-gradient-to-br from-amber-900 via-amber-950 to-slate-950 text-white rounded-2xl shadow-xl border border-amber-800/50">
-            <div class="absolute inset-0 opacity-10 bg-[radial-gradient(#f59e0b_1px,transparent_1px)] [background-size:16px_16px] pointer-events-none"></div>
-            <div class="text-5xl sm:text-6xl mb-2 drop-shadow-md relative z-10">📗</div>
-            <h1 class="text-2xl sm:text-3xl font-bold text-white tracking-tight relative z-10">Kitab Maulid Nabi</h1>
-            <p class="text-xs text-amber-100/90 mt-1 relative z-10 font-medium">Pilih Kitab Maulid yang ingin dibaca</p>
+        <div class="quran-card p-6 sm:p-8 text-center mb-6 relative overflow-hidden bg-gradient-to-br from-[#1b594a] via-[#15463a] to-[#0c201a] text-[#e6ece6] rounded-2xl shadow-xl border border-[#598456]/40">
+            <div class="absolute inset-0 opacity-10 bg-[radial-gradient(#baae4f_1px,transparent_1px)] [background-size:16px_16px] pointer-events-none"></div>
+            <div class="mb-3 relative z-10 flex justify-center">
+                <img src="{{ asset('vendor/quran/images/maulid.png') }}" alt="Maulid" class="w-16 h-16 sm:w-20 sm:h-20 object-contain drop-shadow-md">
+            </div>
+            <h1 class="text-2xl sm:text-3xl font-bold text-[#e6ece6] tracking-tight relative z-10">Kitab Maulid Nabi</h1>
+            <p class="text-xs text-[#b4c0b0] mt-1 relative z-10 font-medium">Pilih Kitab Maulid yang ingin dibaca</p>
         </div>
 
         <!-- 2-COLUMN MAULID CARDS GRID -->
@@ -68,13 +70,13 @@
                    class="quran-card quran-card-hover p-0 flex items-stretch rounded-2xl border border-[var(--q-border)] bg-[var(--q-surface)] overflow-hidden group transition-all shadow-2xs">
                     
                     <!-- Left Number Box -->
-                    <div class="w-14 sm:w-16 bg-amber-500/10 dark:bg-amber-950/40 text-amber-600 dark:text-amber-400 font-bold text-lg sm:text-xl flex items-center justify-center shrink-0 group-hover:bg-amber-600 group-hover:text-white transition-colors">
+                    <div class="w-14 sm:w-16 bg-[#598456]/15 dark:bg-[#598456]/25 text-[#1b594a] dark:text-[#e6ece6] font-bold text-lg sm:text-xl flex items-center justify-center shrink-0 group-hover:bg-[#1b594a] group-hover:text-white dark:group-hover:bg-[#598456] transition-colors">
                         {{ $loop->iteration }}
                     </div>
 
                     <!-- Right Content -->
                     <div class="p-3.5 sm:p-4 flex-1 min-w-0 flex flex-col justify-center">
-                        <h3 class="font-bold text-sm sm:text-base text-[var(--q-text)] group-hover:text-amber-600 transition-colors truncate">
+                        <h3 class="font-bold text-sm sm:text-base text-[var(--q-text)] group-hover:text-[#598456] dark:group-hover:text-[#e0d68f] transition-colors truncate">
                             {{ $col['name'] }}
                         </h3>
                         <p class="text-xs text-[var(--q-muted)] mt-0.5 font-medium">
@@ -95,13 +97,15 @@
     <!-- ========================================== -->
     @else
 
-        <div class="quran-card p-6 sm:p-8 text-center mb-8 relative overflow-hidden bg-gradient-to-br from-amber-900 via-amber-950 to-slate-950 text-white rounded-2xl shadow-xl border border-amber-800/50">
-            <div class="absolute inset-0 opacity-10 bg-[radial-gradient(#f59e0b_1px,transparent_1px)] [background-size:16px_16px] pointer-events-none"></div>
-            <div class="text-5xl sm:text-6xl mb-3 drop-shadow-md relative z-10">📗</div>
-            <h1 class="text-2xl sm:text-3xl font-bold text-white tracking-tight relative z-10">
+        <div class="quran-card p-6 sm:p-8 text-center mb-8 relative overflow-hidden bg-gradient-to-br from-[#1b594a] via-[#15463a] to-[#0c201a] text-[#e6ece6] rounded-2xl shadow-xl border border-[#598456]/40">
+            <div class="absolute inset-0 opacity-10 bg-[radial-gradient(#baae4f_1px,transparent_1px)] [background-size:16px_16px] pointer-events-none"></div>
+            <div class="mb-3 relative z-10 flex justify-center">
+                <img src="{{ asset('vendor/quran/images/maulid.png') }}" alt="Maulid" class="w-16 h-16 sm:w-20 sm:h-20 object-contain drop-shadow-md">
+            </div>
+            <h1 class="text-2xl sm:text-3xl font-bold text-[#e6ece6] tracking-tight relative z-10">
                 {{ $activeCollection['name'] ?? 'Maulid' }}
             </h1>
-            <p class="text-xs text-amber-100/90 mt-2 relative z-10 font-medium">
+            <p class="text-xs text-[#b4c0b0] mt-2 relative z-10 font-medium">
                 {{ $activeCollection['description'] ?? 'Kitab Maulid Nabi Muhammad SAW' }}
             </p>
         </div>

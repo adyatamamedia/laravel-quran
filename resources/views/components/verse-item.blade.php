@@ -31,7 +31,7 @@
                                 class="js-play-verse-audio w-full text-left px-3 py-2 text-[var(--q-text)] hover:bg-[var(--q-hover)] flex items-center gap-2.5 transition-colors font-medium"
                                 data-audio="{{ $verse->audioUrl }}"
                                 data-title="QS. {{ $surah->nameLatin }}: {{ $verse->ayahNumber }}">
-                            <svg class="w-4 h-4 text-emerald-600 dark:text-emerald-400 shrink-0" fill="currentColor" viewBox="0 0 24 24">
+                            <svg class="w-4 h-4 text-[#598456] dark:text-[#baae4f] shrink-0" fill="currentColor" viewBox="0 0 24 24">
                                 <path d="M8 5v14l11-7z"></path>
                             </svg>
                             <span>Putar Audio Ayat</span>
@@ -43,7 +43,7 @@
                         <button type="button" 
                                 class="js-toggle-tafsir w-full text-left px-3 py-2 text-[var(--q-text)] hover:bg-[var(--q-hover)] flex items-center gap-2.5 transition-colors font-medium"
                                 data-target="tafsir-{{ $surah->number }}-{{ $verse->ayahNumber }}">
-                            <svg class="w-4 h-4 text-emerald-600 dark:text-emerald-400 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <svg class="w-4 h-4 text-[#598456] dark:text-[#baae4f] shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"></path>
                             </svg>
                             <span>Tafsir Kemenag</span>
@@ -61,7 +61,7 @@
                             data-arabic="{{ $verse->arabicUtsmani }}"
                             data-latin="{{ $verse->latin }}"
                             data-translation="{{ $verse->translationId }}">
-                        <svg class="w-4 h-4 text-slate-500 dark:text-slate-400 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <svg class="w-4 h-4 text-[#7c9c8a] shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7v8a2 2 0 002 2h6M8 7V5a2 2 0 012-2h4.586a1 1 0 01.707.293l4.414 4.414a1 1 0 01.293.707V15a2 2 0 01-2 2h-2M8 7H6a2 2 0 00-2 2v10a2 2 0 002 2h8a2 2 0 002-2v-2"></path>
                         </svg>
                         <span>Salin Teks Ayat</span>
@@ -75,7 +75,7 @@
                             data-ayah="{{ $verse->ayahNumber }}"
                             data-arabic="{{ $verse->arabicUtsmani }}"
                             data-translation="{{ $verse->translationId }}">
-                        <svg class="w-4 h-4 text-slate-500 dark:text-slate-400 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <svg class="w-4 h-4 text-[#7c9c8a] shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8.684 13.342C8.886 12.938 9 12.482 9 12c0-.482-.114-.938-.316-1.342m0 2.684a3 3 0 110-2.684m0 2.684l6.632 3.316m-6.632-6l6.632-3.316m0 0a3 3 0 105.367-2.684 3 3 0 00-5.367 2.684zm0 9.316a3 3 0 105.368 2.684 3 3 0 00-5.368-2.684z"></path>
                         </svg>
                         <span>Bagikan Ayat</span>
@@ -88,7 +88,7 @@
                             data-surah-num="{{ $surah->number }}"
                             data-slug="{{ $surah->slug }}"
                             data-ayah="{{ $verse->ayahNumber }}">
-                        <svg class="w-4 h-4 text-amber-500 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <svg class="w-4 h-4 text-[#baae4f] shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 5a2 2 0 012-2h10a2 2 0 012 2v16l-7-3.5L5 21V5z"></path>
                         </svg>
                         <span>Bookmark Ayat</span>
@@ -108,12 +108,12 @@
     @if(!empty($verse->latin))
         <div class="verse-latin-text my-1">
             <div id="latin-text-{{ $surah->number }}-{{ $verse->ayahNumber }}" 
-                 class="text-base font-medium text-[var(--q-verse-accent)] leading-relaxed italic line-clamp-4">
+                 class="text-base font-medium text-[#598456] dark:text-[#b4c0b0] leading-relaxed italic line-clamp-4">
                 {{ $verse->latin }}
             </div>
             @if(mb_strlen($verse->latin) > 180)
                 <button type="button" 
-                        class="js-expand-text text-xs font-bold text-[var(--q-verse-accent)] hover:underline mt-0.5" 
+                        class="js-expand-text text-xs font-bold text-[#598456] dark:text-[#baae4f] hover:underline mt-0.5" 
                         data-target="latin-text-{{ $surah->number }}-{{ $verse->ayahNumber }}">
                     <span>Selengkapnya...</span>
                 </button>

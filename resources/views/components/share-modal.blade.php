@@ -7,7 +7,7 @@
         <!-- Header -->
         <div class="flex items-center justify-between pb-3.5 border-b border-[var(--q-border)] mb-4">
             <div class="flex items-center gap-2.5">
-                <div class="w-9 h-9 rounded-xl bg-emerald-100 dark:bg-emerald-950/80 text-emerald-700 dark:text-emerald-400 flex items-center justify-center shrink-0">
+                <div class="w-9 h-9 rounded-xl bg-[#598456]/15 text-[#1b594a] dark:text-[#baae4f] flex items-center justify-center shrink-0">
                     <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8.684 13.342C8.886 12.938 9 12.482 9 12c0-.482-.114-.938-.316-1.342m0 2.684a3 3 0 110-2.684m0 2.684l6.632 3.316m-6.632-6l6.632-3.316m0 0a3 3 0 105.367-2.684 3 3 0 00-5.367 2.684zm0 9.316a3 3 0 105.368 2.684 3 3 0 00-5.368-2.684z"></path>
                     </svg>
@@ -17,8 +17,11 @@
                     <p id="share-modal-subtitle" class="text-xs text-[var(--q-muted)]">QS. Al-Qur'an Digital</p>
                 </div>
             </div>
-            <button type="button" class="js-close-share text-[var(--q-muted)] hover:text-[var(--q-text)] p-1 text-lg font-bold">
-                ✕
+            <button type="button" class="js-close-share text-[var(--q-muted)] hover:text-[var(--q-text)] p-1 rounded-lg hover:bg-[var(--q-hover)] transition-colors">
+                <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24">
+                    <line x1="18" y1="6" x2="6" y2="18"></line>
+                    <line x1="6" y1="6" x2="18" y2="18"></line>
+                </svg>
             </button>
         </div>
 
@@ -34,7 +37,7 @@
         <div class="space-y-3">
             <div class="grid grid-cols-3 gap-2.5">
                 <!-- WhatsApp -->
-                <a id="share-btn-wa" href="#" target="_blank" rel="noopener" class="flex flex-col items-center justify-center p-3 rounded-xl bg-emerald-600 hover:bg-emerald-700 text-white transition-all shadow-sm group">
+                <a id="share-btn-wa" href="#" target="_blank" rel="noopener" class="flex flex-col items-center justify-center p-3 rounded-xl bg-[#1b594a] hover:bg-[#13463a] text-white transition-all shadow-sm group">
                     <svg class="w-6 h-6 mb-1 group-hover:scale-110 transition-transform" fill="currentColor" viewBox="0 0 24 24">
                         <path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946.003-6.556 5.338-11.891 11.893-11.891 3.181.001 6.167 1.24 8.413 3.488 2.245 2.248 3.481 5.236 3.48 8.414-.003 6.557-5.338 11.892-11.893 11.892-1.99-.001-3.951-.5-5.688-1.448l-6.305 1.654zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.434 9.889-9.885.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.887 4.434-9.889 9.884-.001 2.225.651 3.891 1.746 5.634l-1.147 4.19 4.226-1.109z"/>
                     </svg>
@@ -59,7 +62,7 @@
             </div>
 
             <!-- Native Mobile Share Button (Shown if supported) -->
-            <button type="button" id="share-btn-native" class="hidden w-full py-2.5 px-4 bg-emerald-600 hover:bg-emerald-700 text-white font-semibold rounded-xl transition-colors text-xs flex items-center justify-center gap-2">
+            <button type="button" id="share-btn-native" class="hidden w-full py-2.5 px-4 bg-[#1b594a] hover:bg-[#13463a] text-white font-semibold rounded-xl transition-colors text-xs flex items-center justify-center gap-2">
                 <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8.684 13.342C8.886 12.938 9 12.482 9 12c0-.482-.114-.938-.316-1.342m0 2.684a3 3 0 110-2.684m0 2.684l6.632 3.316m-6.632-6l6.632-3.316m0 0a3 3 0 105.367-2.684 3 3 0 00-5.367 2.684zm0 9.316a3 3 0 105.368 2.684 3 3 0 00-5.368-2.684z"></path>
                 </svg>
@@ -68,7 +71,7 @@
 
             <!-- Copy Text Button -->
             <button type="button" id="share-btn-copy" class="w-full py-2.5 px-4 bg-[var(--q-bg)] hover:bg-[var(--q-hover)] text-[var(--q-text)] border border-[var(--q-border)] font-semibold rounded-xl transition-colors text-xs flex items-center justify-center gap-2">
-                <svg class="w-4 h-4 text-emerald-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <svg class="w-4 h-4 text-[#1b594a] dark:text-[#baae4f]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"></path>
                 </svg>
                 <span id="share-btn-copy-text">Salin Teks ke Clipboard</span>

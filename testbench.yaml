@@ -1,0 +1,5 @@
+env:
+  CACHE_STORE: file
+  CACHE_DRIVER: file
+  SESSION_DRIVER: file
+  ISLAMI_API_VERIFY_SSL: false

@@ -10,6 +10,7 @@ return [
     'routing_mode' => env('QURAN_ROUTING_MODE', 'prefix'),
     'prefix'       => env('QURAN_ROUTE_PREFIX', 'quran'),
     'domain'       => env('QURAN_DOMAIN', null),
+    'site_title'   => env('QURAN_SITE_TITLE', 'Quran Laravel Pack'),
     'middleware'   => ['web'],
 
     /*
@@ -33,6 +34,7 @@ return [
         'key'             => env('ISLAMI_API_KEY', ''),
         'timeout'         => (int) env('ISLAMI_API_TIMEOUT', 10),
         'connect_timeout' => (int) env('ISLAMI_API_CONNECT_TIMEOUT', 3),
+        'verify_ssl'      => (bool) env('ISLAMI_API_VERIFY_SSL', false),
         'cache_enabled'   => (bool) env('ISLAMI_API_CACHE', true),
 
         // Customizable Endpoint Paths

@@ -21,11 +21,11 @@
         <!-- Middle: Tab Switcher (Tahlil / Yasin) -->
         <div class="flex items-center bg-[var(--q-hover)] p-1 rounded-xl border border-[var(--q-border)] shadow-xs">
             <a href="{{ route('quran.tahlil', ['tab' => 'tahlil']) }}" 
-               class="px-4 py-1.5 rounded-lg text-xs font-bold transition-all flex items-center gap-1.5 {{ $tab === 'tahlil' ? 'bg-emerald-600 text-white shadow-sm' : 'text-[var(--q-muted)] hover:text-[var(--q-text)]' }}">
+               class="px-4 py-1.5 rounded-lg text-xs font-bold transition-all flex items-center gap-1.5 {{ $tab === 'tahlil' ? 'bg-[#1b594a] text-white shadow-sm' : 'text-[var(--q-muted)] hover:text-[#1b594a] dark:hover:text-[#e6ece6] hover:bg-[#598456]/15' }}">
                 <span>Tahlil</span>
             </a>
             <a href="{{ route('quran.tahlil', ['tab' => 'yasin']) }}" 
-               class="px-4 py-1.5 rounded-lg text-xs font-bold transition-all flex items-center gap-1.5 {{ $tab === 'yasin' ? 'bg-emerald-600 text-white shadow-sm' : 'text-[var(--q-muted)] hover:text-[var(--q-text)]' }}">
+               class="px-4 py-1.5 rounded-lg text-xs font-bold transition-all flex items-center gap-1.5 {{ $tab === 'yasin' ? 'bg-[#1b594a] text-white shadow-sm' : 'text-[var(--q-muted)] hover:text-[#1b594a] dark:hover:text-[#e6ece6] hover:bg-[#598456]/15' }}">
                 <span>Yasin</span>
             </a>
         </div>
@@ -33,7 +33,7 @@
         <!-- Right: Settings Drawer Button -->
         <div class="flex items-center gap-2">
             <button type="button" 
-                    class="js-open-settings h-9 w-9 flex items-center justify-center rounded-lg bg-[var(--q-hover)] border border-[var(--q-border)] text-[var(--q-text)] hover:text-emerald-600 hover:border-emerald-500 transition-colors shrink-0" 
+                    class="js-open-settings h-9 w-9 flex items-center justify-center rounded-lg bg-[var(--q-hover)] border border-[var(--q-border)] text-[var(--q-text)] hover:text-[#598456] hover:border-[#598456] transition-colors shrink-0" 
                     title="Pengaturan Tampilan Pembaca">
                 <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6V4m0 2a2 2 0 100 4m0-4a2 2 0 110 4m-6 8a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4m6 6v10m6-2a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4"></path>
@@ -46,25 +46,31 @@
 <div class="quran-reader-container">
 
     <!-- Surah / Tahlil Header Card (Identical to Single Surah Header) -->
-    <div class="quran-card p-6 sm:p-8 text-center mb-8 relative overflow-hidden bg-gradient-to-br from-emerald-900 via-emerald-950 to-slate-950 text-white rounded-2xl shadow-xl border border-emerald-800/50">
+    <div class="quran-card p-6 sm:p-8 text-center mb-8 relative overflow-hidden bg-gradient-to-br from-[#1b594a] via-[#15463a] to-[#0c201a] text-[#e6ece6] rounded-2xl shadow-xl border border-[#598456]/40">
         <!-- Pattern Accent Overlay -->
-        <div class="absolute inset-0 opacity-10 bg-[radial-gradient(#10b981_1px,transparent_1px)] [background-size:16px_16px] pointer-events-none"></div>
+        <div class="absolute inset-0 opacity-10 bg-[radial-gradient(#baae4f_1px,transparent_1px)] [background-size:16px_16px] pointer-events-none"></div>
 
-        <!-- Calligraphy / Icon -->
-        <div class="font-calligraphy text-6xl sm:text-7xl text-amber-300 mb-3 drop-shadow-md relative z-10">
-            {{ $tab === 'yasin' ? ($yasinSurah ? $yasinSurah->calligraphyGlyph : 'يس') : '📿' }}
+        <!-- Calligraphy / Asset Icon -->
+        <div class="mb-3 relative z-10 flex justify-center">
+            @if($tab === 'yasin')
+                <span class="font-calligraphy text-6xl sm:text-7xl text-[#baae4f] drop-shadow-md">
+                    {{ $yasinSurah ? $yasinSurah->calligraphyGlyph : 'يس' }}
+                </span>
+            @else
+                <img src="{{ asset('vendor/quran/images/tahlil.png') }}" alt="Tahlil" class="w-16 h-16 sm:w-20 sm:h-20 object-contain drop-shadow-md">
+            @endif
         </div>
 
         <!-- Title -->
-        <h1 class="text-2xl sm:text-3xl font-bold text-white tracking-tight relative z-10">
+        <h1 class="text-2xl sm:text-3xl font-bold text-[#e6ece6] tracking-tight relative z-10">
             {{ $tab === 'yasin' ? 'Surat Yasin' : 'Tahlil Lengkap & Doa' }}
         </h1>
 
         <!-- Subtitle & Badges -->
-        <div class="flex flex-wrap items-center justify-center gap-2 text-xs text-emerald-100/90 mt-2 relative z-10 font-medium">
+        <div class="flex flex-wrap items-center justify-center gap-2 text-xs text-[#b4c0b0] mt-2 relative z-10 font-medium">
             <span>{{ $tab === 'yasin' ? '"' . ($yasinSurah ? $yasinSurah->translatedName : 'Eyemoon') . '"' : 'Rangkaian Bacaan Tahlil & Doa Arwah' }}</span>
             <span>·</span>
-            <span class="px-2.5 py-0.5 rounded-full bg-emerald-800/80 text-amber-300 font-semibold border border-emerald-700/60 shadow-xs">
+            <span class="px-2.5 py-0.5 rounded-full bg-[#598456]/30 text-[#baae4f] font-semibold border border-[#baae4f]/40 shadow-xs">
                 {{ $tab === 'yasin' ? ($yasinSurah ? $yasinSurah->revelationType : 'Makkiyah') : 'MUI' }}
             </span>
             <span>·</span>
@@ -75,7 +81,7 @@
             <!-- Yasin Audio Player Button -->
             <div class="mt-4 relative z-10 flex justify-center">
                 <button type="button" 
-                        class="js-play-surah-audio inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-amber-400 hover:bg-amber-300 text-slate-950 font-bold text-xs shadow-md transition-all transform hover:scale-105"
+                        class="js-play-surah-audio inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-[#baae4f] hover:bg-[#d8cd7a] text-[#0c201a] font-bold text-xs shadow-md transition-all transform hover:scale-105"
                         data-audio="{{ $yasinSurah->audioUrl }}"
                         data-surah-num="36"
                         data-surah-name="Yasin"
@@ -92,7 +98,7 @@
         @if($tab === 'yasin' && $yasinSurah)
             <!-- Basmallah -->
             @if($yasinSurah->number !== 9 && $yasinSurah->number !== 1)
-                <div class="font-arabic !text-center text-2xl sm:text-3xl text-amber-200/90 my-6 pt-5 border-t border-emerald-800/60 relative z-10 drop-shadow-xs">
+                <div class="font-arabic !text-center text-2xl sm:text-3xl text-[#baae4f] my-6 pt-5 border-t border-[#598456]/40 relative z-10 drop-shadow-xs">
                     بِسْمِ ٱللَّهِ ٱلرَّحْمَٰنِ ٱلرَّحِيمِ
                 </div>
             @endif

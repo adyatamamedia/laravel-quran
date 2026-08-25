@@ -12,6 +12,7 @@ class ApiClient
     protected string $apiKey;
     protected int $timeout;
     protected int $connectTimeout;
+    protected bool $verifySsl;
     protected array $defaultQuery;
     protected array $headers;
 
@@ -21,6 +22,7 @@ class ApiClient
         $this->apiKey = config('quran.api.key', '');
         $this->timeout = (int) config('quran.api.timeout', 10);
         $this->connectTimeout = (int) config('quran.api.connect_timeout', 3);
+        $this->verifySsl = (bool) config('quran.api.verify_ssl', false);
         $this->defaultQuery = $this->withoutNullValues((array) config('quran.api.default_query', []));
         $this->headers = $this->withoutNullValues((array) config('quran.api.headers', []));
 
@@ -115,6 +117,10 @@ class ApiClient
         $request = Http::timeout($this->timeout)
             ->connectTimeout($this->connectTimeout)
             ->acceptJson();
+
+        if (!$this->verifySsl) {
+            $request = $request->withoutVerifying();
+        }
 
         if ($this->headers !== []) {
             $request = $request->withHeaders($this->headers);
