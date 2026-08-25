@@ -3,15 +3,15 @@
 namespace Adyatama\Quran\Controllers;
 
 use Illuminate\Routing\Controller;
-use Adyatama\Quran\Services\IslamiApi\QuranService;
+use Adyatama\Quran\Contracts\QuranServiceInterface;
 use Adyatama\Quran\Support\SurahSlug;
 use Illuminate\Http\Request;
 
 class VerseController extends Controller
 {
-    protected QuranService $quranService;
+    protected QuranServiceInterface $quranService;
 
-    public function __construct(QuranService $quranService)
+    public function __construct(QuranServiceInterface $quranService)
     {
         $this->quranService = $quranService;
     }
@@ -32,6 +32,10 @@ class VerseController extends Controller
         $surah = $this->quranService->getSurah($surahMeta['number']);
         if (!$surah) {
             abort(404, 'Data surah belum tersedia.');
+        }
+
+        if ($surah->versesCount > 0 && empty($surah->verses)) {
+            abort(503, 'Data ayat sedang tidak tersedia. Silakan coba lagi nanti.');
         }
 
         $prevSurah = $surah->number > 1 ? SurahSlug::findByNumber($surah->number - 1) : null;

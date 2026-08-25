@@ -12,6 +12,8 @@ class ApiClient
     protected string $apiKey;
     protected int $timeout;
     protected int $connectTimeout;
+    protected array $defaultQuery;
+    protected array $headers;
 
     public function __construct()
     {
@@ -19,6 +21,27 @@ class ApiClient
         $this->apiKey = config('quran.api.key', '');
         $this->timeout = (int) config('quran.api.timeout', 10);
         $this->connectTimeout = (int) config('quran.api.connect_timeout', 3);
+        $this->defaultQuery = $this->withoutNullValues((array) config('quran.api.default_query', []));
+        $this->headers = $this->withoutNullValues((array) config('quran.api.headers', []));
+
+        if ($this->apiKey !== '' && !isset($this->headers['X-Api-Key'])) {
+            $this->headers['X-Api-Key'] = $this->apiKey;
+        }
+    }
+
+    public function endpoint(string $key, array $replacements = []): string
+    {
+        $template = (string) config("quran.api.endpoints.{$key}", $key);
+
+        foreach ($replacements as $placeholder => $value) {
+            $template = str_replace(
+                '{' . $placeholder . '}',
+                rawurlencode((string) $value),
+                $template
+            );
+        }
+
+        return ltrim($template, '/');
     }
 
     public function get(string $endpoint, array $queryParams = []): ?array
@@ -27,19 +50,14 @@ class ApiClient
         $startTime = microtime(true);
 
         try {
-            $request = Http::timeout($this->timeout)
-                ->connectTimeout($this->connectTimeout)
-                ->acceptJson();
-
-            if (!empty($this->apiKey)) {
-                $request->withHeaders(['X-Api-Key' => $this->apiKey]);
-            }
-
-            $response = $request->get($url, $queryParams);
+            $response = $this->request()->get($url, $this->mergeQuery($queryParams));
             $latency = round((microtime(true) - $startTime) * 1000, 2);
 
             if ($response->successful()) {
                 $data = $response->json();
+                if (!is_array($data)) {
+                    return null;
+                }
                 Log::debug("Islami API Request Success", [
                     'endpoint' => $endpoint,
                     'status'   => $response->status(),
@@ -75,18 +93,11 @@ class ApiClient
         $url = $this->baseUrl . '/' . ltrim($endpoint, '/');
 
         try {
-            $request = Http::timeout($this->timeout)
-                ->connectTimeout($this->connectTimeout)
-                ->acceptJson();
-
-            if (!empty($this->apiKey)) {
-                $request->withHeaders(['X-Api-Key' => $this->apiKey]);
-            }
-
-            $response = $request->get($url, $queryParams);
+            $response = $this->request()->get($url, $this->mergeQuery($queryParams));
 
             if ($response->successful()) {
-                return $response->json();
+                $data = $response->json();
+                return is_array($data) ? $data : null;
             }
 
             return null;
@@ -97,5 +108,28 @@ class ApiClient
             ]);
             return null;
         }
+    }
+
+    protected function request()
+    {
+        $request = Http::timeout($this->timeout)
+            ->connectTimeout($this->connectTimeout)
+            ->acceptJson();
+
+        if ($this->headers !== []) {
+            $request = $request->withHeaders($this->headers);
+        }
+
+        return $request;
+    }
+
+    protected function mergeQuery(array $queryParams): array
+    {
+        return array_merge($this->defaultQuery, $this->withoutNullValues($queryParams));
+    }
+
+    protected function withoutNullValues(array $values): array
+    {
+        return array_filter($values, static fn ($value) => $value !== null && $value !== '');
     }
 }

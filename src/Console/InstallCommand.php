@@ -27,6 +27,12 @@ class InstallCommand extends Command
             '--force' => true,
         ]);
 
+        $this->comment('Publishing views...');
+        $this->callSilent('vendor:publish', [
+            '--tag' => 'quran-views',
+            '--force' => $force,
+        ]);
+
         $this->info('✨ Laravel Quran Package successfully installed!');
         $this->line('🌐 You can now access Al-Quran at: <info>' . url(config('quran.prefix', 'quran')) . '</info>');
 

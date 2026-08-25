@@ -3,21 +3,20 @@
 namespace Adyatama\Quran\Controllers;
 
 use Illuminate\Routing\Controller;
-use Adyatama\Quran\Services\IslamiApi\QuranService;
-use Adyatama\Quran\Services\IslamiApi\ApiClient;
+use Adyatama\Quran\Contracts\ContentServiceInterface;
+use Adyatama\Quran\Contracts\QuranServiceInterface;
 use Adyatama\Quran\Support\SurahSlug;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Cache;
 
 class TahlilController extends Controller
 {
-    protected QuranService $quranService;
-    protected ApiClient $apiClient;
+    protected QuranServiceInterface $quranService;
+    protected ContentServiceInterface $contentService;
 
-    public function __construct(QuranService $quranService, ApiClient $apiClient)
+    public function __construct(QuranServiceInterface $quranService, ContentServiceInterface $contentService)
     {
         $this->quranService = $quranService;
-        $this->apiClient = $apiClient;
+        $this->contentService = $contentService;
     }
 
     public function index(Request $request)
@@ -30,9 +29,7 @@ class TahlilController extends Controller
         // Fetch Surah Yasin (Surah 36)
         $yasinSurah = $this->quranService->getSurah(36);
 
-        // Fetch Tahlil Collection directly from ASWAJA API (Always fresh, no cache)
-        $raw = $this->apiClient->getRaw('collections/tahlil-lengkap');
-        $tahlilData = $raw['data'] ?? null;
+        $tahlilData = $this->contentService->getTahlil();
 
         $allSurahs = SurahSlug::all();
 

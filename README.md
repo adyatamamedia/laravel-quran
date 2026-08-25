@@ -83,6 +83,7 @@ Perintah di atas secara otomatis akan:
 - Mem-publish file konfigurasi ke `config/quran.php`.
 - Mem-publish asset CSS & JS player ke `public/vendor/quran/`.
 - Mem-publish file font kaligrafi (LPMQ & Omar) ke `public/vendor/quran/fonts/`.
+- Mem-publish salinan views ke `resources/views/vendor/quran/`.
 - Mengaktifkan rute Al-Qur'an di `/quran`.
 
 ---
@@ -102,6 +103,8 @@ ISLAMI_API_URL=https://aswaja.tama.my.id/api/v1
 ISLAMI_API_KEY=
 ISLAMI_API_CACHE=true
 ISLAMI_API_TIMEOUT=10
+QURAN_SERVICE_CLASS=Adyatama\Quran\Services\IslamiApi\QuranService
+QURAN_CONTENT_SERVICE_CLASS=Adyatama\Quran\Services\IslamiApi\ContentService
 ```
 
 ---
@@ -142,6 +145,10 @@ Anda dapat menyesuaikan endpoint path, default query parameters (kategori/sumber
 ],
 ```
 
+Semua request bawaan menggunakan path dari `endpoints`, menggabungkan
+`default_query`, dan mengirim `headers`. Parameter runtime akan menimpa nilai
+default dengan key yang sama.
+
 ### Level 2: Filter Kategori pada Service
 
 Di controller atau logic project Anda, Anda dapat memanggil method dengan filter kategori dinamis:
@@ -181,7 +188,7 @@ Jika project tertentu ingin menggunakan database lokal (MySQL/PostgreSQL) atau s
            return \App\Models\Surah::where($filters)->get()->toArray();
        }
 
-       public function getSurah(int $number, array $params = []): ?object
+       public function getSurah(int|string $number, array $params = []): ?\Adyatama\Quran\Data\SurahData
        {
            return \App\Models\Surah::with('verses')->where('number', $number)->first();
        }
@@ -200,7 +207,12 @@ Jika project tertentu ingin menggunakan database lokal (MySQL/PostgreSQL) atau s
        $this->app->bind(QuranServiceInterface::class, MyLocalDatabaseQuranService::class);
    }
    ```
-   *Seluruh controller dan views package akan otomatis beralih menggunakan backend lokal Anda tanpa mengubah kode package.*
+   *Controller Qur’an menggunakan `QuranServiceInterface`, sehingga driver yang hanya mengimplementasikan interface tetap dapat di-resolve.*
+
+Untuk mengganti layanan Tahlil, Wirid, Doa, dan Maulid, implementasikan
+`Adyatama\Quran\Contracts\ContentServiceInterface`, lalu ubah
+`QURAN_CONTENT_SERVICE_CLASS` atau bind interface tersebut pada service provider
+project Anda.
 
 ---
 
