@@ -19,7 +19,7 @@
                 <div>
                     <div class="flex items-center gap-2">
                         <h3 class="font-bold text-sm sm:text-base text-[var(--q-text)] leading-tight">Changelog Paket</h3>
-                        <span id="changelog-latest-badge" class="text-[10px] font-bold px-2 py-0.5 rounded-full bg-[#1b594a] text-white">v2.1.1</span>
+                        <span id="changelog-latest-badge" class="text-[10px] font-bold px-2 py-0.5 rounded-full bg-[#1b594a] text-white">v2.2.1</span>
                     </div>
                     <div class="flex items-center gap-1.5 mt-0.5">
                         <span class="inline-block w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse"></span>

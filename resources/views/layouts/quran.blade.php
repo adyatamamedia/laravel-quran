@@ -96,7 +96,7 @@
     <link rel="icon" href="{{ $siteFaviconUrl }}">
     <link rel="apple-touch-icon" href="{{ $siteFaviconUrl }}">
 
-    <link rel="stylesheet" href="{{ asset('vendor/quran/css/quran.css') }}?v={{ config('quran.version', '2.1.1') }}">
+    <link rel="stylesheet" href="{{ asset('vendor/quran/css/quran.css') }}?v={{ config('quran.version', '2.2.1') }}">
     <script src="https://cdn.tailwindcss.com"></script>
     <script>
         tailwind.config = {
@@ -285,7 +285,7 @@
                             <line x1="16" y1="17" x2="8" y2="17"></line>
                         </svg>
                         <span>Changelog</span>
-                        <span class="text-[10px] font-bold px-1.5 py-0.5 rounded bg-[#1b594a] text-white">v2.1.1</span>
+                        <span class="text-[10px] font-bold px-1.5 py-0.5 rounded bg-[#1b594a] text-white">v2.2.1</span>
                     </button>
 
                     <a href="https://aswaja.tama.my.id/laravel-quran" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-[#1b594a] hover:bg-[#13463a] text-white text-xs font-semibold shadow-xs transition-colors" title="Buka Landing Page Package">
@@ -337,7 +337,7 @@
     </button>
 
     <!-- Quran Core JS -->
-    <script src="{{ asset('vendor/quran/js/quran.js') }}?v={{ config('quran.version', '2.1.1') }}"></script>
+    <script src="{{ asset('vendor/quran/js/quran.js') }}?v={{ config('quran.version', '2.2.1') }}"></script>
     @stack('scripts')
 </body>
 </html>

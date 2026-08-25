@@ -7,6 +7,27 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ---
 
+## [2.2.1] - 2026-08-26
+
+### Added
+- **Artisan Package Update Command (`php artisan quran:update`)**:
+  - Perintah satu baris untuk memaksa pembaruan seluruh aset statis (`quran.css`, `quran.js`, Fonts, Images) ke direktori `public/vendor/quran/`.
+  - Otomatis melakukan pembersihan cache compile view (`view:clear`) dan flush cache Al-Qur'an (`Cache::flush()`).
+  - Opsi fleksibel `--views` dan `--config` untuk menimpa file blade atau konfigurasi bila diperlukan.
+- **Dynamic Asset Cache Busting**:
+  - Penambahan query parameter versi otomatis (`?v=2.2.1`) pada stylesheet `quran.css` dan skrip `quran.js` di layout master Blade, memastikan browser klien tidak pernah menahan cache lama.
+- **Integrasi API Publik GitHub Releases di Front-End**:
+  - Modal Changelog kini terhubung langsung ke GitHub API untuk memuat riwayat rilis secara dinamis dengan parser Markdown otomatis.
+
+### Fixed
+- **Optimasi Tombol Floating Back to Top**:
+  - Penambahan class styling CSS khusus `.q-back-to-top`, `.q-back-to-top.is-visible`, dan `.q-back-to-top.is-idle` untuk stabilitas transisi dan animasi.
+  - Perbaikan timer auto-fade 3 detik saat scroll idle agar tidak menutupi ayat bacaan.
+- **Pembersihan Cache Paksa Saat Update**:
+  - Memastikan seluruh cache respons API dan compiled views ter-flush total saat update package dijalankan klien.
+
+---
+
 ## [2.1.1] - 2026-08-26
 
 ### Added
@@ -20,7 +41,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - **Tombol Floating Back to Top Dinamis (*Smart Auto-Fade*)**:
   - Otomatis tersembunyi saat berada di bagian paling atas halaman (`scrollY < 300`).
   - Muncul dengan animasi transisi halus saat pengguna membaca dan scroll ke bawah.
-  - Fitur cerdas *idle detection*: otomatis memudar (*fade-out*) setelah 2.5 detik berhenti scroll agar tidak menutupi ayat bacaan.
+  - Fitur cerdas *idle detection*: otomatis memudar (*fade-out*) setelah 3 detik berhenti scroll agar tidak menutupi ayat bacaan.
   - Reaktif kembali seketika saat pengguna melanjutkan scrolling atau hover mouse.
   - Navigasi kembali ke puncak halaman dengan *smooth scrolling*.
 - **Aset Visual Layanan & Kaligrafi HD**:

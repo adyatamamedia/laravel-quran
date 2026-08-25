@@ -260,18 +260,17 @@ document.addEventListener('DOMContentLoaded', () => {
       <div class="p-4 rounded-xl bg-[var(--q-hover)]/60 border border-[var(--q-border)] space-y-2.5">
         <div class="flex items-center justify-between pb-2 border-b border-[var(--q-border)]/50">
           <div class="flex items-center gap-2">
-            <span class="font-bold text-sm text-[var(--q-text)]">Versi v2.1.1</span>
+            <span class="font-bold text-sm text-[var(--q-text)]">Versi v2.2.1</span>
             <span class="text-[10px] font-bold px-2 py-0.5 rounded bg-[#598456]/20 text-[#1b594a] dark:text-[#baae4f]">Terbaru</span>
           </div>
           <span class="text-[10px] text-[var(--q-muted)]">26 Agustus 2026</span>
         </div>
         <ul class="list-disc list-inside space-y-1 text-[var(--q-text)] text-[11px] leading-relaxed">
-          <li><strong>Tombol Back to Top Cerdas:</strong> Auto-hide di puncak halaman & auto-fade saat idle membaca.</li>
+          <li><strong>Artisan Update Command:</strong> Perintah <code>php artisan quran:update</code> untuk re-publish aset dan flush cache.</li>
+          <li><strong>Asset Cache Busting:</strong> Query parameter versi otomatis (?v=2.2.1) mencegah cache lawas.</li>
+          <li><strong>Tombol Back to Top Cerdas:</strong> Auto-hide di puncak halaman & auto-fade 3 detik saat scroll idle.</li>
           <li><strong>Sistem Palet 6 Warna Kustom:</strong> Desain harmonis dengan rasio kontras WCAG AAA & mode gelap.</li>
-          <li><strong>Aset Visual 3D & Kaligrafi HD:</strong> Ikon 3D untuk 4 layanan utama dan kaligrafi surat.</li>
-          <li><strong>Redesain Modal Search Compact:</strong> Pencarian instan yang super ringkas dan responsif di mobile.</li>
           <li><strong>Preload Font Arab (Omar):</strong> Jaminan font Omar langsung termuat saat pertama kali diakses.</li>
-          <li><strong>Perbaikan Tipografi & Sambungan Huruf:</strong> Line-height 1.45, ligature OpenType, dan overflow visible.</li>
         </ul>
       </div>
     `;
