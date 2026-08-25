@@ -107,8 +107,10 @@
         <div class="absolute inset-0 opacity-10 bg-[radial-gradient(#baae4f_1px,transparent_1px)] [background-size:16px_16px] pointer-events-none"></div>
 
         <!-- Calligraphy Surah Title (Gold) -->
-        <div class="font-calligraphy text-6xl sm:text-7xl text-[#baae4f] mb-3 drop-shadow-md relative z-10" title="{{ $surah->nameArabic }}">
-            {{ $surah->calligraphyGlyph }}
+        <div class="mb-3 relative z-10 flex justify-center overflow-visible py-2">
+            <span class="font-calligraphy text-6xl sm:text-7xl text-[#baae4f] drop-shadow-md" title="{{ $surah->nameArabic }}">
+                {{ $surah->calligraphyGlyph }}
+            </span>
         </div>
 
         <!-- Latin Name (White/Light) -->

@@ -37,9 +37,12 @@
   font-family: 'surah-name-v2-icon', 'Omar', 'Amiri', 'LPMQ Isep Misbah', sans-serif !important;
   font-style: normal;
   font-weight: normal;
-  line-height: 1;
+  line-height: 1.45;
   direction: ltr;
   display: inline-block;
+  padding-top: 0.15em;
+  padding-bottom: 0.15em;
+  overflow: visible;
 }
 
 @layer base {

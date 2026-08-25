@@ -84,7 +84,7 @@
         })();
     </script>
     
-    <!-- Fonts: OMAR (Arabic) via Islami API CDN + Inter (Latin UI) -->
+    <!-- Fonts: Local WOFF2 Arabic Fonts (Omar, LPMQ, Surah Names) + Google Fonts (Inter, Amiri, Scheherazade) -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <!-- Inter for UI text -->
