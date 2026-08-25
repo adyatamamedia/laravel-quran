@@ -142,6 +142,23 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   });
 
+  // --- Changelog Modal Handler ---
+  const changelogModal = document.getElementById('quran-changelog-modal');
+  const openChangelogBtns = document.querySelectorAll('.js-open-changelog');
+  const closeChangelogBtns = document.querySelectorAll('.js-close-changelog');
+
+  openChangelogBtns.forEach(btn => {
+    btn.addEventListener('click', () => {
+      if (changelogModal) changelogModal.classList.remove('hidden');
+    });
+  });
+
+  closeChangelogBtns.forEach(btn => {
+    btn.addEventListener('click', () => {
+      if (changelogModal) changelogModal.classList.add('hidden');
+    });
+  });
+
   // Settings Input Listeners
   const fontInput = document.getElementById('setting-font-size');
   if (fontInput) {
@@ -988,5 +1005,62 @@ document.addEventListener('DOMContentLoaded', () => {
         `;
       }
     } catch (e) {}
+  }
+
+  // --- Dynamic Back to Top Button (Disappears at Top & Auto-fades on Idle) ---
+  const backToTopBtn = document.getElementById('quran-back-to-top');
+  if (backToTopBtn) {
+    let scrollIdleTimer = null;
+    let isHovered = false;
+
+    function showBackToTop() {
+      backToTopBtn.classList.remove('opacity-0', 'pointer-events-none', 'translate-y-8', 'translate-y-2');
+      backToTopBtn.classList.add('opacity-100', 'pointer-events-auto', 'translate-y-0');
+    }
+
+    function hideBackToTop(subtle = false) {
+      if (isHovered) return;
+      backToTopBtn.classList.remove('opacity-100', 'pointer-events-auto', 'translate-y-0');
+      backToTopBtn.classList.add('opacity-0', 'pointer-events-none', subtle ? 'translate-y-2' : 'translate-y-8');
+    }
+
+    function handleScroll() {
+      const scrollPos = window.scrollY || document.documentElement.scrollTop;
+
+      if (scrollPos < 300) {
+        hideBackToTop(false);
+        if (scrollIdleTimer) clearTimeout(scrollIdleTimer);
+      } else {
+        showBackToTop();
+        if (scrollIdleTimer) clearTimeout(scrollIdleTimer);
+        
+        // Auto fade out when idle after 2.5 seconds
+        scrollIdleTimer = setTimeout(() => {
+          if (!isHovered) {
+            hideBackToTop(true);
+          }
+        }, 2500);
+      }
+    }
+
+    window.addEventListener('scroll', handleScroll, { passive: true });
+
+    backToTopBtn.addEventListener('mouseenter', () => {
+      isHovered = true;
+      showBackToTop();
+      if (scrollIdleTimer) clearTimeout(scrollIdleTimer);
+    });
+
+    backToTopBtn.addEventListener('mouseleave', () => {
+      isHovered = false;
+      handleScroll();
+    });
+
+    backToTopBtn.addEventListener('click', () => {
+      window.scrollTo({
+        top: 0,
+        behavior: 'smooth'
+      });
+    });
   }
 });

@@ -93,23 +93,6 @@
     <!-- Arabic fonts: Amiri & Scheherazade (fallbacks) -->
     <link href="https://fonts.googleapis.com/css2?family=Amiri:ital,wght@0,400;0,700;1,400&family=Scheherazade+New:wght@400;700&display=swap" rel="stylesheet">
     
-    <style>
-        @font-face {
-            font-family: 'Omar';
-            src: url('{{ asset('vendor/quran/fonts/omar.woff2') }}') format('woff2');
-            font-weight: normal;
-            font-style: normal;
-            font-display: swap;
-        }
-        @font-face {
-            font-family: 'surah-name-v2-icon';
-            src: url('{{ asset('vendor/quran/fonts/surah-name-v2.ttf') }}') format('truetype');
-            font-weight: normal;
-            font-style: normal;
-            font-display: swap;
-        }
-    </style>
-
     <link rel="icon" href="{{ $siteFaviconUrl }}">
     <link rel="apple-touch-icon" href="{{ $siteFaviconUrl }}">
 
@@ -287,9 +270,35 @@
                 </div>
             </div>
 
-            <!-- Bottom Copyright & Details -->
-            <div class="pt-6 border-t border-[var(--q-border)] flex flex-col sm:flex-row items-center justify-between gap-3 text-xs">
-                <p>&copy; {{ date('Y') }} <span class="font-semibold text-[var(--q-text)]">{{ $siteTitleText }}</span>. All rights reserved.</p>
+            <!-- Bottom Copyright, Action Buttons & Details -->
+            <div class="pt-6 border-t border-[var(--q-border)] flex flex-col md:flex-row items-center justify-between gap-4 text-xs">
+                <!-- Copyright -->
+                <p class="text-center md:text-left">&copy; {{ date('Y') }} <span class="font-semibold text-[var(--q-text)]">{{ $siteTitleText }}</span>. All rights reserved.</p>
+
+                <!-- Footer Action Buttons (Changelog & Landing Page) -->
+                <div class="flex flex-wrap items-center justify-center gap-2.5">
+                    <button type="button" class="js-open-changelog inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg border border-[var(--q-border)] bg-[var(--q-surface-card)] hover:bg-[#598456]/15 hover:border-[#598456] text-[var(--q-text)] text-xs font-semibold shadow-xs transition-colors" title="Lihat Riwayat Pembaruan">
+                        <svg class="w-3.5 h-3.5 text-[#1b594a] dark:text-[#baae4f]" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24">
+                            <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
+                            <polyline points="14 2 14 8 20 8"></polyline>
+                            <line x1="16" y1="13" x2="8" y2="13"></line>
+                            <line x1="16" y1="17" x2="8" y2="17"></line>
+                        </svg>
+                        <span>Changelog</span>
+                        <span class="text-[10px] font-bold px-1.5 py-0.5 rounded bg-[#1b594a] text-white">v2.1.1</span>
+                    </button>
+
+                    <a href="https://aswaja.tama.my.id/laravel-quran" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-[#1b594a] hover:bg-[#13463a] text-white text-xs font-semibold shadow-xs transition-colors" title="Buka Landing Page Package">
+                        <span>Landing Page Paket</span>
+                        <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24">
+                            <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path>
+                            <polyline points="15 3 21 3 21 9"></polyline>
+                            <line x1="10" y1="14" x2="21" y2="3"></line>
+                        </svg>
+                    </a>
+                </div>
+
+                <!-- Attribution -->
                 <div class="flex items-center gap-1 text-xs text-[var(--q-muted)]">
                     <span>Build &amp; Developed with</span>
                     <svg class="w-4 h-4 text-red-500 fill-red-500 shrink-0" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round">
@@ -310,8 +319,22 @@
     <!-- Reader Settings Drawer Component -->
     @include('quran::components.settings-drawer')
 
+    <!-- Changelog Modal Component -->
+    @include('quran::components.changelog-modal')
+
     <!-- Floating Global Audio Player Component -->
     @include('quran::components.audio-player')
+
+    <!-- Dynamic Back to Top Button -->
+    <button type="button" 
+            id="quran-back-to-top" 
+            class="fixed bottom-6 right-6 z-40 p-3 rounded-full bg-[#1b594a]/90 hover:bg-[#13463a] text-white shadow-2xl border border-[#baae4f]/50 backdrop-blur-md transition-all duration-300 transform translate-y-8 opacity-0 pointer-events-none hover:scale-110 active:scale-95 group" 
+            title="Kembali ke atas"
+            aria-label="Kembali ke atas">
+        <svg class="w-5 h-5 transition-transform group-hover:-translate-y-0.5" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24">
+            <path d="M18 15l-6-6-6 6"/>
+        </svg>
+    </button>
 
     <!-- Quran Core JS -->
     <script src="{{ asset('vendor/quran/js/quran.js') }}"></script>
