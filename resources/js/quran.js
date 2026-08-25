@@ -142,14 +142,147 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   });
 
-  // --- Changelog Modal Handler ---
+  // --- Changelog Modal Handler (Fetches directly from GitHub Releases API) ---
   const changelogModal = document.getElementById('quran-changelog-modal');
   const openChangelogBtns = document.querySelectorAll('.js-open-changelog');
   const closeChangelogBtns = document.querySelectorAll('.js-close-changelog');
 
+  const GH_RELEASES_URL = 'https://api.github.com/repos/adyatamamedia/laravel-quran/releases';
+  const GH_RELEASES_CACHE_KEY = 'quran_github_releases_cache_v1';
+  const GH_CACHE_DURATION = 15 * 60 * 1000; // 15 minutes cache
+
+  function parseMarkdownToHtml(markdown) {
+    if (!markdown) return '';
+    let html = markdown
+      .replace(/&/g, '&amp;')
+      .replace(/</g, '&lt;')
+      .replace(/>/g, '&gt;')
+      .replace(/^### (.*$)/gim, '<h4 class="font-bold text-xs text-[var(--q-text)] mt-2.5 mb-1 uppercase tracking-wide">$1</h4>')
+      .replace(/^## (.*$)/gim, '<h3 class="font-bold text-xs text-[var(--q-text)] mt-3 mb-1">$1</h3>')
+      .replace(/\*\*(.*?)\*\*/gim, '<strong class="font-semibold text-[var(--q-text)]">$1</strong>')
+      .replace(/\[([^\]]+)\]\((https?:\/\/[^\)]+)\)/gim, '<a href="$2" target="_blank" rel="noopener noreferrer" class="text-[#1b594a] dark:text-[#baae4f] underline hover:text-[#598456]">$1</a>')
+      .replace(/^\s*-\s+(.*$)/gim, '<li class="text-[11px] text-[var(--q-text)] leading-relaxed">$1</li>');
+
+    html = html.replace(/(<li.*<\/li>(\s*<li.*<\/li>)*)/gim, '<ul class="list-disc list-inside space-y-1 my-1.5 pl-0.5">$1</ul>');
+
+    html = html.split('\n\n').map(p => {
+      if (p.trim().startsWith('<h') || p.trim().startsWith('<ul')) return p;
+      return `<p class="text-[11px] text-[var(--q-muted)] leading-relaxed my-1">${p}</p>`;
+    }).join('');
+
+    return html;
+  }
+
+  async function loadGitHubReleases() {
+    const listContainer = document.getElementById('changelog-releases-list');
+    if (!listContainer) return;
+
+    // 1. Try Cached Data
+    try {
+      const cachedRaw = localStorage.getItem(GH_RELEASES_CACHE_KEY);
+      if (cachedRaw) {
+        const cached = JSON.parse(cachedRaw);
+        if (Date.now() - cached.timestamp < GH_CACHE_DURATION && Array.isArray(cached.data) && cached.data.length > 0) {
+          renderReleases(cached.data, listContainer);
+          return;
+        }
+      }
+    } catch (e) {}
+
+    // 2. Fetch from GitHub API
+    try {
+      const res = await fetch(GH_RELEASES_URL, {
+        headers: { 'Accept': 'application/vnd.github.v3+json' }
+      });
+      if (!res.ok) throw new Error(`HTTP error! status: ${res.status}`);
+      const data = await res.json();
+
+      if (Array.isArray(data) && data.length > 0) {
+        localStorage.setItem(GH_RELEASES_CACHE_KEY, JSON.stringify({
+          timestamp: Date.now(),
+          data: data
+        }));
+        renderReleases(data, listContainer);
+      } else {
+        renderFallbackReleases(listContainer);
+      }
+    } catch (err) {
+      console.warn('Failed to fetch GitHub releases, using fallback:', err);
+      renderFallbackReleases(listContainer);
+    }
+  }
+
+  function renderReleases(releases, container) {
+    if (!container) return;
+
+    const latestBadge = document.getElementById('changelog-latest-badge');
+    if (latestBadge && releases[0] && releases[0].tag_name) {
+      latestBadge.textContent = releases[0].tag_name;
+    }
+
+    container.innerHTML = releases.map((release, index) => {
+      const isLatest = index === 0;
+      const releaseDate = release.published_at 
+        ? new Date(release.published_at).toLocaleDateString('id-ID', { year: 'numeric', month: 'long', day: 'numeric' })
+        : '26 Agustus 2026';
+
+      const bodyHtml = parseMarkdownToHtml(release.body || 'Tidak ada catatan rilis.');
+
+      return `
+        <div class="p-4 rounded-xl ${isLatest ? 'bg-[var(--q-hover)]/60 border border-[var(--q-border)] shadow-xs' : 'bg-[var(--q-hover)]/25 border border-[var(--q-border)] opacity-85'} space-y-2.5 transition-all">
+          <div class="flex items-center justify-between pb-2 border-b border-[var(--q-border)]/50">
+            <div class="flex items-center gap-2">
+              <span class="font-bold text-sm text-[var(--q-text)]">${release.name || release.tag_name}</span>
+              ${isLatest ? '<span class="text-[10px] font-bold px-2 py-0.5 rounded bg-[#598456]/20 text-[#1b594a] dark:text-[#baae4f]">Terbaru</span>' : ''}
+            </div>
+            <span class="text-[10px] text-[var(--q-muted)] font-medium">${releaseDate}</span>
+          </div>
+
+          <div class="changelog-body text-[var(--q-text)]">
+            ${bodyHtml}
+          </div>
+
+          <div class="pt-2 border-t border-[var(--q-border)]/40 flex items-center justify-between">
+            <a href="${release.html_url}" target="_blank" rel="noopener noreferrer" class="text-[10px] font-semibold text-[#1b594a] dark:text-[#baae4f] hover:underline inline-flex items-center gap-1">
+              <span>Buka Rilis di GitHub</span>
+              <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"/></svg>
+            </a>
+            <span class="text-[10px] text-[var(--q-muted)] font-mono">${release.tag_name}</span>
+          </div>
+        </div>
+      `;
+    }).join('');
+  }
+
+  function renderFallbackReleases(container) {
+    if (!container) return;
+    container.innerHTML = `
+      <div class="p-4 rounded-xl bg-[var(--q-hover)]/60 border border-[var(--q-border)] space-y-2.5">
+        <div class="flex items-center justify-between pb-2 border-b border-[var(--q-border)]/50">
+          <div class="flex items-center gap-2">
+            <span class="font-bold text-sm text-[var(--q-text)]">Versi v2.1.1</span>
+            <span class="text-[10px] font-bold px-2 py-0.5 rounded bg-[#598456]/20 text-[#1b594a] dark:text-[#baae4f]">Terbaru</span>
+          </div>
+          <span class="text-[10px] text-[var(--q-muted)]">26 Agustus 2026</span>
+        </div>
+        <ul class="list-disc list-inside space-y-1 text-[var(--q-text)] text-[11px] leading-relaxed">
+          <li><strong>Tombol Back to Top Cerdas:</strong> Auto-hide di puncak halaman & auto-fade saat idle membaca.</li>
+          <li><strong>Sistem Palet 6 Warna Kustom:</strong> Desain harmonis dengan rasio kontras WCAG AAA & mode gelap.</li>
+          <li><strong>Aset Visual 3D & Kaligrafi HD:</strong> Ikon 3D untuk 4 layanan utama dan kaligrafi surat.</li>
+          <li><strong>Redesain Modal Search Compact:</strong> Pencarian instan yang super ringkas dan responsif di mobile.</li>
+          <li><strong>Preload Font Arab (Omar):</strong> Jaminan font Omar langsung termuat saat pertama kali diakses.</li>
+          <li><strong>Perbaikan Tipografi & Sambungan Huruf:</strong> Line-height 1.45, ligature OpenType, dan overflow visible.</li>
+        </ul>
+      </div>
+    `;
+  }
+
   openChangelogBtns.forEach(btn => {
     btn.addEventListener('click', () => {
-      if (changelogModal) changelogModal.classList.remove('hidden');
+      if (changelogModal) {
+        changelogModal.classList.remove('hidden');
+        loadGitHubReleases();
+      }
     });
   });
 
