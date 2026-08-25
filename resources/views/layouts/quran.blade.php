@@ -328,7 +328,7 @@
     <!-- Dynamic Back to Top Button -->
     <button type="button" 
             id="quran-back-to-top" 
-            class="fixed bottom-6 right-6 z-40 p-3 rounded-full bg-[#1b594a]/90 hover:bg-[#13463a] text-white shadow-2xl border border-[#baae4f]/50 backdrop-blur-md transition-all duration-300 transform translate-y-8 opacity-0 pointer-events-none hover:scale-110 active:scale-95 group" 
+            class="q-back-to-top group" 
             title="Kembali ke atas"
             aria-label="Kembali ke atas">
         <svg class="w-5 h-5 transition-transform group-hover:-translate-y-0.5" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24">

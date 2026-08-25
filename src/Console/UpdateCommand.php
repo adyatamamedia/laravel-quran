@@ -41,15 +41,21 @@ class UpdateCommand extends Command
             ]);
         }
 
-        // 4. Clear compiled view cache
+        // 4. Force clear application and view cache
+        $this->comment('Clearing Quran cache and compiled views...');
+        try {
+            \Illuminate\Support\Facades\Cache::flush();
+        } catch (\Throwable $e) {}
+        
+        $this->callSilent('cache:clear');
         $this->callSilent('view:clear');
 
         $this->newLine();
-        $this->info('Laravel Quran package assets have been successfully updated to v' . config('quran.version', '2.1.1') . '!');
+        $this->info('Laravel Quran package assets and cache have been successfully refreshed to v' . config('quran.version', '2.1.1') . '!');
         $this->line('<comment>Tip:</comment> To automatically update assets on every <info>composer update</info>, add this to your <info>composer.json</info>:');
         $this->line('  "scripts": {');
         $this->line('    "post-update-cmd": [');
-        $this->line('      "@php artisan vendor:publish --tag=quran-assets --force --ansi"');
+        $this->line('      "@php artisan quran:update --ansi"');
         $this->line('    ]');
         $this->line('  }');
 
