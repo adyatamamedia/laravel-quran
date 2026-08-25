@@ -7,18 +7,18 @@
 @custom-variant dark (&:where([data-theme="dark"], [data-theme="dark"] *));
 
 @font-face {
-  font-family: 'LPMQ Isep Misbah';
-  src: url('/vendor/quran/fonts/lpmq-isep-misbah.woff2') format('woff2'),
-       url('../fonts/lpmq-isep-misbah.woff2') format('woff2');
+  font-family: 'Omar';
+  src: url('../fonts/omar.woff2') format('woff2'),
+       url('/vendor/quran/fonts/omar.woff2') format('woff2');
   font-weight: normal;
   font-style: normal;
   font-display: swap;
 }
 
 @font-face {
-  font-family: 'Omar';
-  src: url('/vendor/quran/fonts/omar.woff2') format('woff2'),
-       url('../fonts/omar.woff2') format('woff2');
+  font-family: 'LPMQ Isep Misbah';
+  src: url('../fonts/lpmq-isep-misbah.woff2') format('woff2'),
+       url('/vendor/quran/fonts/lpmq-isep-misbah.woff2') format('woff2');
   font-weight: normal;
   font-style: normal;
   font-display: swap;
@@ -26,8 +26,8 @@
 
 @font-face {
   font-family: 'surah-name-v2-icon';
-  src: url('/vendor/quran/fonts/surah-name-v2.ttf') format('truetype'),
-       url('../fonts/surah-name-v2.ttf') format('truetype');
+  src: url('../fonts/surah-name-v2.ttf') format('truetype'),
+       url('/vendor/quran/fonts/surah-name-v2.ttf') format('truetype');
   font-weight: normal;
   font-style: normal;
   font-display: swap;

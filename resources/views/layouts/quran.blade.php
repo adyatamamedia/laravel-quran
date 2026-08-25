@@ -84,13 +84,32 @@
         })();
     </script>
     
-    <!-- Fonts: Local WOFF2 Arabic Fonts (Omar, LPMQ, Surah Names) + Google Fonts (Inter, Amiri, Scheherazade) -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <!-- Preload Primary Arabic Font (Omar) for Instant Rendering on Deploy -->
+    <link rel="preload" href="{{ asset('vendor/quran/fonts/omar.woff2') }}" as="font" type="font/woff2" crossorigin>
+    <link rel="preload" href="{{ asset('vendor/quran/fonts/surah-name-v2.ttf') }}" as="font" type="font/ttf" crossorigin>
+
     <!-- Inter for UI text -->
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
-    <!-- Arabic fonts: OMAR (primary) + Amiri & Scheherazade (fallbacks) -->
+    <!-- Arabic fonts: Amiri & Scheherazade (fallbacks) -->
     <link href="https://fonts.googleapis.com/css2?family=Amiri:ital,wght@0,400;0,700;1,400&family=Scheherazade+New:wght@400;700&display=swap" rel="stylesheet">
+    
+    <style>
+        @font-face {
+            font-family: 'Omar';
+            src: url('{{ asset('vendor/quran/fonts/omar.woff2') }}') format('woff2');
+            font-weight: normal;
+            font-style: normal;
+            font-display: swap;
+        }
+        @font-face {
+            font-family: 'surah-name-v2-icon';
+            src: url('{{ asset('vendor/quran/fonts/surah-name-v2.ttf') }}') format('truetype');
+            font-weight: normal;
+            font-style: normal;
+            font-display: swap;
+        }
+    </style>
+
     <link rel="icon" href="{{ $siteFaviconUrl }}">
     <link rel="apple-touch-icon" href="{{ $siteFaviconUrl }}">
 
