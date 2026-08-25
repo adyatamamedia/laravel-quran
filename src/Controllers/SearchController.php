@@ -3,14 +3,14 @@
 namespace Adyatama\Quran\Controllers;
 
 use Illuminate\Routing\Controller;
-use Adyatama\Quran\Services\IslamiApi\QuranService;
+use Adyatama\Quran\Contracts\QuranServiceInterface;
 use Illuminate\Http\Request;
 
 class SearchController extends Controller
 {
-    protected QuranService $quranService;
+    protected QuranServiceInterface $quranService;
 
-    public function __construct(QuranService $quranService)
+    public function __construct(QuranServiceInterface $quranService)
     {
         $this->quranService = $quranService;
     }

@@ -3,33 +3,30 @@
 namespace Adyatama\Quran\Controllers;
 
 use Illuminate\Routing\Controller;
-use Adyatama\Quran\Services\IslamiApi\ApiClient;
+use Adyatama\Quran\Contracts\ContentServiceInterface;
 use Illuminate\Http\Request;
 
 class WiridController extends Controller
 {
-    protected ApiClient $apiClient;
+    protected ContentServiceInterface $contentService;
 
-    public function __construct(ApiClient $apiClient)
+    public function __construct(ContentServiceInterface $contentService)
     {
-        $this->apiClient = $apiClient;
+        $this->contentService = $contentService;
     }
 
     public function index(Request $request, ?string $slug = null)
     {
-        $tab = $request->query('tab', 'doa'); // 'doa', 'wirid', or 'maulid'
-        $categorySlug = $slug ?? $request->query('kategori', '');
-        $wiridSlug = $request->query('koleksi', '');
-        $maulidSlug = $request->query('maulid', '');
-        $search = $request->query('q', '');
+        $tab = $request->query('tab', 'doa');
+        $tab = in_array($tab, ['doa', 'wirid', 'maulid'], true) ? $tab : 'doa';
+        $categorySlug = $this->validSlug($slug ?? $request->query('kategori', ''));
+        $wiridSlug = $this->validSlug($request->query('koleksi', ''));
+        $maulidSlug = $this->validSlug($request->query('maulid', ''));
+        $search = mb_substr(trim((string) $request->query('q', '')), 0, 100);
 
-        // 1. Fetch Doa Categories from ASWAJA API
-        $doaCategoriesRaw = $this->apiClient->getRaw('kategori-doa');
-        $doaCategories = $doaCategoriesRaw['data'] ?? [];
+        $doaCategories = $this->contentService->getDoaCategories();
 
-        // 2. Fetch all collections from ASWAJA API
-        $collectionsRaw = $this->apiClient->getRaw('collections');
-        $allCollections = $collectionsRaw['data'] ?? [];
+        $allCollections = $this->contentService->getCollections();
 
         // Wirid: exclude Tahlil & anything starting with "Maulid"
         $wiridCollections = array_values(array_filter($allCollections, function ($item) {
@@ -68,14 +65,11 @@ class WiridController extends Controller
                     $params['search'] = $search;
                 }
 
-                // Fetch directly from the new /doa v1.8.0 endpoint (includes full arabic, latin, translation)
-                $raw = $this->apiClient->getRaw('doa', $params);
-                $doaItems = $raw['data'] ?? [];
+                $doaItems = $this->contentService->getDoa($params);
             }
         } elseif ($tab === 'wirid') {
             if (!empty($wiridSlug)) {
-                $detailRaw = $this->apiClient->getRaw("collections/{$wiridSlug}");
-                $activeWiridCollection = $detailRaw['data'] ?? null;
+                $activeWiridCollection = $this->contentService->getCollection($wiridSlug, 'wirid');
 
                 if (!empty($activeWiridCollection['sections'])) {
                     foreach ($activeWiridCollection['sections'] as &$sec) {
@@ -85,8 +79,7 @@ class WiridController extends Controller
                                 $cSlug = $item['content']['slug'];
                                 $vals = collect($item['content']['values'] ?? [])->pluck('value', 'field_key');
                                 if (empty($vals->get('arabic_text')) && empty($vals->get('arabic')) && empty($item['content']['sections'])) {
-                                    $cDetail = $this->apiClient->getRaw("contents/{$cSlug}");
-                                    $cData = $cDetail['data'] ?? $cDetail ?? [];
+                                    $cData = $this->contentService->getContent($cSlug) ?? [];
                                     if (!empty($cData['sections'])) {
                                         $item['content']['sections'] = $cData['sections'];
                                     }
@@ -98,8 +91,7 @@ class WiridController extends Controller
             }
         } elseif ($tab === 'maulid') {
             if (!empty($maulidSlug)) {
-                $detailRaw = $this->apiClient->getRaw("collections/{$maulidSlug}");
-                $activeMaulidCollection = $detailRaw['data'] ?? null;
+                $activeMaulidCollection = $this->contentService->getCollection($maulidSlug, 'maulid');
             }
         }
 
@@ -117,5 +109,11 @@ class WiridController extends Controller
             'activeWiridCollection' => $activeWiridCollection,
             'activeMaulidCollection'=> $activeMaulidCollection,
         ]);
+    }
+
+    protected function validSlug(mixed $value): string
+    {
+        $slug = trim((string) $value);
+        return preg_match('/^[a-z0-9]+(?:-[a-z0-9]+)*$/', $slug) === 1 ? $slug : '';
     }
 }

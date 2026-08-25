@@ -20,6 +20,7 @@ return [
     | implementing Adyatama\Quran\Contracts\QuranServiceInterface.
     */
     'service' => env('QURAN_SERVICE_CLASS', \Adyatama\Quran\Services\IslamiApi\QuranService::class),
+    'content_service' => env('QURAN_CONTENT_SERVICE_CLASS', \Adyatama\Quran\Services\IslamiApi\ContentService::class),
 
     /*
     |--------------------------------------------------------------------------
@@ -39,9 +40,14 @@ return [
             'surahs'      => env('QURAN_EP_SURAHS', 'quran/surahs'),
             'surah'       => env('QURAN_EP_SURAH', 'quran/surahs/{number}'),
             'verse'       => env('QURAN_EP_VERSE', 'quran/surah/{surah}/ayah/{ayah}'),
-            'tahlil'      => env('QURAN_EP_TAHLIL', 'tahlil'),
-            'wirid'       => env('QURAN_EP_WIRID', 'wirid'),
-            'maulid'      => env('QURAN_EP_MAULID', 'maulid'),
+            'verse_legacy'=> env('QURAN_EP_VERSE_LEGACY', 'surah/{surah}/{ayah}'),
+            'tahlil'      => env('QURAN_EP_TAHLIL', 'collections/tahlil-lengkap'),
+            'collections' => env('QURAN_EP_COLLECTIONS', 'collections'),
+            'collection'  => env('QURAN_EP_COLLECTION', 'collections/{slug}'),
+            'categories_doa' => env('QURAN_EP_CATEGORIES_DOA', 'kategori-doa'),
+            'content'     => env('QURAN_EP_CONTENT', 'contents/{slug}'),
+            'wirid'       => env('QURAN_EP_WIRID', 'collections/{slug}'),
+            'maulid'      => env('QURAN_EP_MAULID', 'collections/{slug}'),
             'doa'         => env('QURAN_EP_DOA', 'doa'),
         ],
 
